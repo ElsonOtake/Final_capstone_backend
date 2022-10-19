@@ -1,24 +1,101 @@
-# README
+![](https://img.shields.io/badge/Microverse-blueviolet)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Project Name
 
-Things you may want to cover:
+> Description the project.
 
-* Ruby version
+## Built With
 
-* System dependencies
+- Major languages
+- Frameworks
+- Technologies used
 
-* Configuration
+## Set up
 
-* Database creation
+- Open your terminal and navigate to the folder you would like to save the project.
 
-* Database initialization
+- Type these commands into the terminal:
 
-* How to run the test suite
+```
+git clone https://github.com/ElsonOtake/Final_capstone_backend.git
+cd Final_capstone_backend
+bundle install
+bundle exec figaro install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+- The bundle exec figaro install is to install and create the `application.yml` file and create the environment variables.
 
-* Deployment instructions
+- Edit file application.yml
 
-* ...
+  - Provide the values for the variables
+    - DATABASE_HOST localhost
+    - DATABASE_USER your_user
+    - DATABASE_PASSWORD your_password
+
+- Type this commands into the terminal:
+
+```
+rails db:create
+rails db:migrate
+```
+
+### Run application
+
+## Live Demo (if available)
+
+[Live Demo Link](https://livedemo.com)
+
+## Getting Started
+
+**This is an example of how you may give instructions on setting up your project locally.**
+**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
+
+To get a local copy up and running follow these simple example steps.
+
+### Prerequisites
+
+### Setup
+
+### Install
+
+### Usage
+
+### Run tests
+
+### Deployment
+
+## Authors
+
+👤 **Author1**
+
+- GitHub: [@githubhandle](https://github.com/githubhandle)
+- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+
+👤 **Author2**
+
+- GitHub: [@githubhandle](https://github.com/githubhandle)
+- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
+- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+## Show your support
+
+Give a ⭐️ if you like this project!
+
+## Acknowledgments
+
+- Hat tip to anyone whose code was used
+- Inspiration
+- etc
+
+## 📝 License
+
+This project is [MIT](./LICENSE) licensed.
+
+_NOTE: we recommend using the [MIT license](https://choosealicense.com/licenses/mit/) - you can set it up quickly by [using templates available on GitHub](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/adding-a-license-to-a-repository). You can also use [any other license](https://choosealicense.com/licenses/) if you wish._
