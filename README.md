@@ -28,9 +28,11 @@ bundle exec figaro install
 - Edit file application.yml
 
   - Provide the values for the variables
-    - DATABASE_HOST localhost
-    - DATABASE_USER your_user
-    - DATABASE_PASSWORD your_password
+    ```
+    DATABASE_HOST: localhost
+    DATABASE_USER: your_user
+    DATABASE_PASSWORD: your_password
+    ```
 
 - Type this commands into the terminal:
 
