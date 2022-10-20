@@ -11,14 +11,14 @@ class Api::V1::GaleriesController < ApplicationController
 
   def create
     data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-    return render json: { error: 'Empty body. Could not create.' } if data.empty?
+    return render json: { error: 'Empty body. Could not create galery.' } if data.empty?
 
     vehicle = Vehicle.find(params[:vehicle_id])
     galery = vehicle.galeries.new(data)
     if galery.save
       render json: galery
     else
-      render json: { error: 'could not create.' }
+      render json: { error: 'Could not create galery.' }
     end
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'Vehicle not found' }, status: :not_found
