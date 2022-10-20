@@ -4,8 +4,8 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users
   def index
-    @users = User.all
-    render json: @users, status: :ok
+    users = User.all
+    render json: users, status: :ok
   end
 
   # GET /users/:id
