@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       end
       resources :vehicles, only: %i[index show create] do
         resources :bookings, only: %i[index show create]
-        resources :galeries, only: %i[index create]
+        resources :galleries, only: %i[index create]
       end
     end
   end
