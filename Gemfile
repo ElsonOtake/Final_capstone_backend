@@ -14,6 +14,8 @@ gem 'puma', '~> 5.0'
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+gem 'active_model_serializers'
+
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 # gem "jbuilder"
 
