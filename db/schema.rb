@@ -15,7 +15,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
   enable_extension "plpgsql"
 
   create_table "bookings", force: :cascade do |t|
-    t.daterange "duration"
+    t.date "start_date"
+    t.date "end_date"
     t.string "city"
     t.bigint "user_id", null: false
     t.bigint "vehicle_id", null: false
@@ -49,15 +50,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
 
   create_table "vehicles", force: :cascade do |t|
     t.string "model"
-    t.integer "year", default: 1900
+    t.string "description"
+    t.string "year"
     t.string "brand"
     t.string "color"
     t.string "country"
     t.string "power"
     t.string "max_speed"
-    t.float "acceleration", default: 0.0
-    t.json "info_interior"
-    t.json "info_exterior"
+    t.string "acceleration"
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
