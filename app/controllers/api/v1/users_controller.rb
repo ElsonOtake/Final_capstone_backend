@@ -1,4 +1,8 @@
 class Api::V1::UsersController < ApplicationController
+  before_action :find_user, except: %i[create index]
+
+  ALLOWED_DATA = %(name email password role).freeze
+
   # GET /users
   def index
     users = User.all
@@ -7,9 +11,48 @@ class Api::V1::UsersController < ApplicationController
 
   # GET /users/:id
   def show
-    user = User.find_by_id!(params[:id])
-    render json: user, status: :ok
+    render json: @user, status: :ok
+  end
+
+  # POST /users
+  def create
+    data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+    return render json: { error: 'Empty body. Could not create user.' }, status: :unprocessable_entity if data.empty?
+
+    user = User.new(data)
+    if user.save
+      render json: user, status: :ok
+    else
+      render json: { error: 'Could not create user.' }, status: :unprocessable_entity
+    end
+  end
+
+  # PUT /users/:id
+  def update
+    data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+    return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_entity if data.empty?
+
+    return if @user.update(data)
+
+    render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+  end
+
+  # DELETE /users/{username}
+  def destroy
+    @user.destroy
+  end
+
+  private
+
+  def find_user
+    @user = User.find_by_id!(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'User not found' }, status: :not_found
+  end
+
+  def user_params
+    params.permit(
+      :name, :email, :password, :role
+    )
   end
 end
