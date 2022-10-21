@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  post '/auth/login', to: 'authentication#login'
+  post 'api/v1/auth/login', to: 'authentication#login'
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       resources :users, only: %i[index show create] do
