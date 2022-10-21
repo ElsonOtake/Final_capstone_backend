@@ -1,5 +1,5 @@
 class Api::V1::GaleriesController < ApplicationController
-  before_action :authorize_request
+  # before_action :authorize_request
 
   ALLOWED_DATA = %(photo).freeze
 

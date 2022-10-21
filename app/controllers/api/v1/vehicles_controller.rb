@@ -1,5 +1,5 @@
 class Api::V1::VehiclesController < ApplicationController
-  before_action :authorize_request
+  # before_action :authorize_request
 
   ALLOWED_DATA = %(model year brand color country power max_speed acceleration info_interior info_exterior price).freeze
 
