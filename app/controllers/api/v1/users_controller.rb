@@ -33,14 +33,17 @@ class Api::V1::UsersController < ApplicationController
     data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
     return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_entity if data.empty?
 
-    return if @user.update(data)
-
-    render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    if @user.update(data)
+      render json: @user, status: :ok
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
   end
 
   # DELETE /users/:id
   def destroy
     @user.destroy
+    render json: @user, status: :ok
   end
 
   private
