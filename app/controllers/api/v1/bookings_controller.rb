@@ -1,7 +1,8 @@
 class Api::V1::BookingsController < ApplicationController
+  load_and_authorize_resource
   before_action :authorize_request
 
-  ALLOWED_DATA = %(user_id vehicle_id duration city).freeze
+  ALLOWED_DATA = %(user_id vehicle_id start_date end_date city).freeze
 
   def index_vehicle
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
