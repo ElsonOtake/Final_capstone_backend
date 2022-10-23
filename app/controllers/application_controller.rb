@@ -5,6 +5,18 @@ class ApplicationController < ActionController::API
     HashWithIndifferentAccess.new(JSON.parse(request.raw_post))
   end
 
+  def current_user
+    header = request.headers['Authorization']
+    if header
+      header = header.split.last
+      begin
+        @decoded = JsonWebToken.decode(header)
+        @current_user = User.find_by_id!(@decoded[:user_id])
+      end
+    end
+    @current_user
+  end
+
   def not_found
     render json: { error: 'not_found' }
   end
