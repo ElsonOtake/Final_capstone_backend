@@ -1,5 +1,5 @@
 class Api::V1::BookingsController < ApplicationController
-  # before_action :authorize_request
+  before_action :authorize_request
 
   ALLOWED_DATA = %(user_id vehicle_id duration city).freeze
 
