@@ -1,6 +1,4 @@
 class AuthenticationController < ApplicationController
-  # protect_from_forgery unless: -> { request.format.json? }
-
   ALLOWED_DATA = %(name password).freeze
 
   # POST /auth/login
