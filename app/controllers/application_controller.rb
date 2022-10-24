@@ -6,7 +6,18 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    @current_user = User.find_by_id!(JsonWebToken.decode(request.headers['Authorization'].split.last)[:user_id])
+    header = request.headers['Authorization']
+    if header.empty?
+      @current_user = nil
+    else
+      header = header.split.last
+      begin
+        @decoded = JsonWebToken.decode(header)
+        @current_user = User.find_by_id!(@decoded[:user_id])
+      rescue ActiveRecord::RecordNotFound || JWT::DecodeError
+        @current_user = nil
+      end
+    end
   end
 
   def not_found
