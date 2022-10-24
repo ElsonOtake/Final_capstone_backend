@@ -30,3 +30,6 @@
 
 # Ignore application configuration
 /config/application.yml
+
+.env
+node_modules/
