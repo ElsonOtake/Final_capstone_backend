@@ -7,26 +7,26 @@ class Api::V1::VehiclesController < ApplicationController
 
   def index
     vehicles = Vehicle.all
-    render json: vehicles
+    render json: vehicles, status: :ok
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'Vehicles not found' }, status: :not_found
   end
 
   def show
-    render json: @vehicle
+    render json: @vehicle, status: :ok
   rescue ActiveRecord::RecordNotFound
     render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def create
     data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-    return render json: { error: 'Empty body. Could not create vehicle.' } if data.empty?
+    return render json: { error: 'Empty body. Could not create vehicle.' }, status: :unprocessable_entity if data.empty?
 
     vehicle = Vehicle.new(data)
     if vehicle.save
-      render json: vehicle
+      render json: vehicle, status: :ok
     else
-      render json: { error: 'Could not create vehicle.' }
+      render json: { error: 'Could not create vehicle.' }, status: :unprocessable_entity
     end
   end
 
