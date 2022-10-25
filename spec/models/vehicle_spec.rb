@@ -32,5 +32,18 @@ RSpec.describe Vehicle, type: :model do
       @car.price = -1
       expect(@car).to_not be_valid
     end
+
+    it 'Price should be greater or equal to 0' do
+      expect(@car.price).to be >=0
+    end
+
+    it 'Price should be numeric' do
+      @car.price = 'b'
+      expect(@car).to_not be_valid
+    end
+
+    it 'Price should be numeric' do
+      expect(@car.price).to be_an(Numeric)
+    end
   end
 end
