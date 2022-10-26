@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Vehicle, type: :model do
   before do
-    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red', country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s', price: 100)
+    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red',
+                          country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '5.6s', price: 100)
   end
 
   context 'When testing Vehicle Class' do
@@ -34,12 +35,7 @@ RSpec.describe Vehicle, type: :model do
     end
 
     it 'Price should be greater or equal to 0' do
-      expect(@car.price).to be >=0
-    end
-
-    it 'Price should be numeric' do
-      @car.price = 'b'
-      expect(@car).to_not be_valid
+      expect(@car.price).to be >= 0
     end
 
     it 'Price should be numeric' do

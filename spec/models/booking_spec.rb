@@ -3,8 +3,11 @@ require 'rails_helper'
 RSpec.describe Booking, type: :model do
   before do
     @user = User.create(name: 'Antonio', role: 'admin', email: 'antonio@mail.com', password: 'password')
-    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red', country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s', price: 100)
-    @booking = Booking.create(user_id: @user.id, vehicle_id: @car.id, start_date: '22/10/2022', end_date: '25/11/2022', city: 'Manizales')
+    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red',
+                          country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s',
+                          price: 100)
+    @booking = Booking.create(user_id: @user.id, vehicle_id: @car.id, start_date: '22/10/2022', end_date: '25/11/2022',
+                              city: 'Manizales')
   end
 
   context 'When testing Booking Class' do

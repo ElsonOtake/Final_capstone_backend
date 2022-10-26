@@ -72,7 +72,10 @@ class Api::V1::BookingsController < ApplicationController
 
   def create
     @data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-    return render json: { error: 'Empty body. Could not create booking.' }, status: :unprocessable_entity if @data.empty?
+    if @data.empty?
+      return render json: { error: 'Empty body. Could not create booking.' },
+                    status: :unprocessable_entity
+    end
 
     create_vehicle_booking if params.include?('vehicle_id')
     create_user_booking if params.include?('user_id')

@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Gallery, type: :model do
   before do
-    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red', country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s', price: 100)
+    @car = Vehicle.create(model: 'Impreza', description: 'Good Car', year: '1996', brand: 'Subaru', color: 'Red',
+                          country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s',
+                          price: 100)
     @gallery = Gallery.create(vehicle_id: @car.id, photo: 'Photo of this car')
   end
 
