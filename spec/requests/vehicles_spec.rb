@@ -80,27 +80,6 @@ RSpec.describe Vehicle, type: :request do
     end
   end
 
-  describe 'GET api/v1/vehicles/:id' do
-    it 'invalid without a valid vehicle' do
-      get '/api/v1/vehicles/0', headers: {
-        Authorization: @token
-      }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
-    end
-  end
-
-  describe 'POST api/v1/vehicles' do
-    it 'invalid without authorization' do
-      post '/api/v1/vehicles', params: {
-        model: 'new_vehicle_model',
-        price: 999
-      }.to_json
-      expect(response.status).to eq(401)
-      expect(response).to have_http_status(:unauthorized)
-    end
-  end
-
   describe 'POST api/v1/vehicles' do
     before(:each) do
       post '/api/v1/vehicles', params: {
@@ -182,14 +161,6 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'DELETE api/v1/vehicles/:id' do
-    it 'invalid without authorization' do
-      delete "/api/v1/vehicles/#{@vehicle.id}"
-      expect(response.status).to eq(401)
-      expect(response).to have_http_status(:unauthorized)
-    end
-  end
-
-  describe 'DELETE api/v1/vehicles/:id' do
     it 'valid with authorization' do
       other = Vehicle.create(model: 'other_model', price: 123)
       delete "/api/v1/vehicles/#{other.id}", headers: {
@@ -197,16 +168,6 @@ RSpec.describe Vehicle, type: :request do
       }
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'DELETE api/v1/vehicles/:id' do
-    it 'invalid without valid vehicle' do
-      delete '/api/v1/vehicles/0', headers: {
-        Authorization: @token
-      }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
     end
   end
 end

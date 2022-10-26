@@ -88,14 +88,6 @@ RSpec.describe Booking, type: :request do
     end
   end
 
-  describe 'GET api/v1/vehicles/:vehicle_id/bookings/:id' do
-    it 'invalid without a valid booking' do
-      get "/api/v1/vehicles/#{@vehicle.id}/bookings/0", headers: { Authorization: @token }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
-    end
-  end
-
   describe 'POST api/v1/vehicles/:vehicle_id/bookings' do
     it 'invalid without authorization' do
       post "/api/v1/vehicles/#{@vehicle.id}/bookings", params: {
@@ -312,14 +304,6 @@ RSpec.describe Booking, type: :request do
   describe 'GET api/v1/users/:user_id/bookings/:id' do
     it 'invalid without a valid user' do
       get "/api/v1/users/0/bookings/#{@booking.id}", headers: { Authorization: @token }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
-    end
-  end
-
-  describe 'GET api/v1/users/:user_id/bookings/:id' do
-    it 'invalid without a valid booking' do
-      get "/api/v1/users/#{@user.id}/bookings/0", headers: { Authorization: @token }
       expect(response.status).to eq(404)
       expect(response).to have_http_status(:not_found)
     end

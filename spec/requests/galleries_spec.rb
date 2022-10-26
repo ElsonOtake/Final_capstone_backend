@@ -50,18 +50,6 @@ RSpec.describe Gallery, type: :request do
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid without authorization' do
-      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
-        name: 'new_galleryname',
-        password: 'new_password',
-        email: 'new_galleryname@email.com'
-      }.to_json
-      expect(response.status).to eq(401)
-      expect(response).to have_http_status(:unauthorized)
-    end
-  end
-
-  describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
     before(:each) do
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
         photo: 'photo.png'

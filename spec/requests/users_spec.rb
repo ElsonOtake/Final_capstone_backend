@@ -69,16 +69,6 @@ RSpec.describe User, type: :request do
     end
   end
 
-  describe 'GET api/v1/users/:id' do
-    it 'invalid without a valid user' do
-      get '/api/v1/users/0', headers: {
-        Authorization: @token
-      }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
-    end
-  end
-
   describe 'POST api/v1/users' do
     it 'valid without authorization' do
       post '/api/v1/users', params: {
@@ -188,19 +178,6 @@ RSpec.describe User, type: :request do
   end
 
   describe 'PUT api/v1/users/:id' do
-    it 'invalid without authorization' do
-      put "/api/v1/users/#{@id}", params: {
-        name: 'rename_username',
-        password: 'rename_password',
-        email: 'rename_username@email.com',
-        role: 'admin'
-      }.to_json
-      expect(response.status).to eq(401)
-      expect(response).to have_http_status(:unauthorized)
-    end
-  end
-
-  describe 'PUT api/v1/users/:id' do
     before(:each) do
       put "/api/v1/users/#{@id}", params: {
         name: 'rename_username',
@@ -276,14 +253,6 @@ RSpec.describe User, type: :request do
   end
 
   describe 'DELETE api/v1/users/:id' do
-    it 'invalid without authorization' do
-      delete "/api/v1/users/#{@id}"
-      expect(response.status).to eq(401)
-      expect(response).to have_http_status(:unauthorized)
-    end
-  end
-
-  describe 'DELETE api/v1/users/:id' do
     it 'valid with authorization' do
       other = User.create(name: 'other', email: 'other@email.com', password: 'otherpassword')
       delete "/api/v1/users/#{other.id}", headers: {
@@ -291,16 +260,6 @@ RSpec.describe User, type: :request do
       }
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
-    end
-  end
-
-  describe 'DELETE api/v1/users/:id' do
-    it 'invalid without valid user' do
-      delete '/api/v1/users/0', headers: {
-        Authorization: @token
-      }
-      expect(response.status).to eq(404)
-      expect(response).to have_http_status(:not_found)
     end
   end
 end
