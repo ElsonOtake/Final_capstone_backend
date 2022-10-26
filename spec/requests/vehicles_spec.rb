@@ -191,7 +191,7 @@ RSpec.describe Vehicle, type: :request do
 
   describe 'DELETE api/v1/vehicles/:id' do
     it 'valid with authorization' do
-      other = Vehicle.create(model:'other_model', price: 123)
+      other = Vehicle.create(model: 'other_model', price: 123)
       delete "/api/v1/vehicles/#{other.id}", headers: {
         Authorization: @token
       }
