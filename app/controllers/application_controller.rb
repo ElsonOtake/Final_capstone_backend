@@ -7,7 +7,7 @@ class ApplicationController < ActionController::API
 
   def current_user
     header = request.headers['Authorization']
-    if header.empty?
+    if header.nil?
       @current_user = nil
     else
       header = header.split.last
