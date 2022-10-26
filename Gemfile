@@ -54,6 +54,8 @@ gem 'rack-cors'
 
 gem 'rubocop'
 
+gem 'rswag'
+
 group :development, :test do
   gem 'rspec-rails'
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
