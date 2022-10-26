@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  # load_and_authorize_resource
+  load_and_authorize_resource
   before_action :authorize_request, except: %i[index create]
   before_action :find_user, except: %i[create index]
 

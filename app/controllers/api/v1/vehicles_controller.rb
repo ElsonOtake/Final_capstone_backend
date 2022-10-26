@@ -1,5 +1,5 @@
 class Api::V1::VehiclesController < ApplicationController
-  # load_and_authorize_resource
+  load_and_authorize_resource
   before_action :authorize_request
   before_action :find_vehicle, except: %i[create index]
 
