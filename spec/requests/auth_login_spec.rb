@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :request do
   before(:each) do
-    user = User.create(name: 'username', email: 'username@blog.com', password: 'password', role: 'admin')
+    user = User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
     @id = user.id
   end
 
