@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show create update destroy] do
         resources :bookings, only: %i[index show create]
       end
-      resources :vehicles, only: %i[index show create] do
+      resources :vehicles, only: %i[index show create destroy] do
         resources :bookings, only: %i[index show create]
         resources :galleries, only: %i[index create]
       end
