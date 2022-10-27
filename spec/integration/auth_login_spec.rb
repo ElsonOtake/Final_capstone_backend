@@ -2,30 +2,34 @@ require 'swagger_helper'
 
 describe 'Auth login' do
   path '/api/v1/auth/login' do
-    post 'Valid user log in' do
-      tags 'Log in'
+    post 'Login user' do
+      tags 'Login'
+      description 'Login user with valid authorization'
       consumes 'application/json'
-      parameter name: :user, in: :body, description: 'Valid user log in', schema: {
+      produces 'application/json'
+      parameter name: :user, in: :body, description: 'User validation', schema: {
         type: :object,
         properties: {
-          email: { type: :string },
+          name: { type: :string },
           password: { type: :string }
         },
-        required: %w[email password]
+        required: %w[name password]
       }
 
       response '200', 'OK' do
-        schema type: :object,
-               properties: {
-                 token: { type: :string },
-                 exp: { type: :string },
-                 email: { type: :string }
-               }
+        let(:user) do
+          { token: 'eyJhbGciOiJIUzI1NiJ9', exp: '10-27-2022 15:18', name: 'Elson Otake', role: 'admin', id: 1 }
+        end
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:id) { { error: 'unauthorized' } }
+        let(:user) { { error: 'Unauthorized' } }
+        run_test!
+      end
+
+      response '404', 'Username not found' do
+        let(:user) { { error: 'Not Found' } }
         run_test!
       end
     end
