@@ -1,5 +1,4 @@
 class Api::V1::VehiclesController < ApplicationController
-  # load_and_authorize_resource
   before_action :authorize_request
   before_action :find_vehicle, except: %i[create index]
 
@@ -19,20 +18,28 @@ class Api::V1::VehiclesController < ApplicationController
   end
 
   def create
-    data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-    return render json: { error: 'Empty body. Could not create vehicle.' }, status: :unprocessable_entity if data.empty?
+    if current_user.is? :admin
+      data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+      return render json: { error: 'Empty body. Could not create vehicle.' }, status: :unprocessable_entity if data.empty?
 
-    vehicle = Vehicle.new(data)
-    if vehicle.save
-      render json: vehicle, status: :ok
+      vehicle = Vehicle.new(data)
+      if vehicle.save
+        render json: vehicle, status: :ok
+      else
+        render json: { error: 'Could not create vehicle.' }, status: :unprocessable_entity
+      end
     else
-      render json: { error: 'Could not create vehicle.' }, status: :unprocessable_entity
+      render json: { error: 'Unauthorized.' }, status: :unauthorized
     end
   end
 
   def destroy
-    @vehicle.destroy
-    render json: @vehicle, status: :ok
+    if current_user.is? :admin
+      @vehicle.destroy
+      render json: @vehicle, status: :ok
+    else
+      render json: { error: 'Unauthorized.' }, status: :unauthorized
+    end
   end
 
   private
