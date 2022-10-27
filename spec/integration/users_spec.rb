@@ -34,8 +34,7 @@ describe 'Users' do
         properties: {
           name: { type: :string },
           email: { type: :string },
-          password: { type: :string },
-          role: { type: :string }
+          password: { type: :string }
         },
         required: %w[name email password]
       }
