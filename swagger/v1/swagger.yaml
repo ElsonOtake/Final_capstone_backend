@@ -436,8 +436,6 @@ paths:
                   type: string
                 password:
                   type: string
-                role:
-                  type: string
               required:
               - name
               - email

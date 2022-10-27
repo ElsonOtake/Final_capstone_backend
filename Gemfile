@@ -40,9 +40,6 @@ gem 'figaro'
 # Authentication
 gem 'devise'
 
-# Authorization
-gem 'cancancan'
-
 # Use Json Web Token (JWT) for token based authentication
 gem 'jwt'
 
