@@ -21,8 +21,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def index
-    index_vehicle if params.include?('vehicle_id')
-    index_user if params.include?('user_id')
+    params.include?('vehicle_id') ? index_vehicle : index_user
   end
 
   def show_vehicle
@@ -42,8 +41,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def show
-    show_vehicle if params.include?('vehicle_id')
-    show_user if params.include?('user_id')
+    params.include?('vehicle_id') ? show_vehicle : show_user
   end
 
   def create_vehicle_booking
@@ -76,8 +74,6 @@ class Api::V1::BookingsController < ApplicationController
       return render json: { error: 'Empty body. Could not create booking.' },
                     status: :unprocessable_entity
     end
-
-    create_vehicle_booking if params.include?('vehicle_id')
-    create_user_booking if params.include?('user_id')
+    @data.include?('vehicle_id') ? create_user_booking : create_vehicle_booking
   end
 end
