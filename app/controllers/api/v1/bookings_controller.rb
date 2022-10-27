@@ -1,5 +1,5 @@
 class Api::V1::BookingsController < ApplicationController
-  load_and_authorize_resource
+  # load_and_authorize_resource
   before_action :authorize_request
 
   ALLOWED_DATA = %(user_id vehicle_id start_date end_date city).freeze
@@ -21,6 +21,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def index
+    # puts "***** booking index #{current_user}"
     params.include?('vehicle_id') ? index_vehicle : index_user
   end
 
@@ -41,6 +42,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def show
+    # puts "***** booking show #{current_user}"
     params.include?('vehicle_id') ? show_vehicle : show_user
   end
 
@@ -69,6 +71,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def create
+    # puts "***** bookings create #{current_user}"
     @data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
     if @data.empty?
       return render json: { error: 'Empty body. Could not create booking.' },

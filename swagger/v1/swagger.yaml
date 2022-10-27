@@ -416,8 +416,6 @@ paths:
                 - email
     post:
       summary: Create a user
-      security:
-      - ApiKeyAuth: []
       tags:
       - Users
       parameters: []

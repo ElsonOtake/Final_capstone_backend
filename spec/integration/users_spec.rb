@@ -26,7 +26,6 @@ describe 'Users' do
 
   path '/api/v1/users' do
     post 'Create a user' do
-      security [{ ApiKeyAuth: [] }]
       tags 'Users'
       consumes 'application/json'
       produces 'application/json'
