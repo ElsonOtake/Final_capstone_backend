@@ -76,7 +76,9 @@ Cloning a repository
 
 - run `rspec spec/requests` for test the requests;
 
-- run `rspec spec/models` for test the models.
+- run `rspec spec/models` for test the models;
+
+- run `rake rswag:specs:swaggerize` to generate the [API documentation](http://localhost:3000/api-docs/index.html).
 
 
 ## Authors
