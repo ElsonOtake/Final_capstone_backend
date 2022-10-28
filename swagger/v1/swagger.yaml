@@ -1,0 +1,789 @@
+---
+openapi: 3.0.1
+info:
+  title: EXO Cars API V1
+  description: This is an EXO cars server
+  version: v1
+paths:
+  "/api/v1/auth/login":
+    post:
+      summary: Login user
+      tags:
+      - Login
+      description: Login user with valid authorization
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+        '404':
+          description: Username not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                password:
+                  type: string
+              required:
+              - name
+              - password
+        description: User validation
+  "/api/v1/vehicles/{vehicle_id}/bookings":
+    get:
+      summary: Retrieves bookings
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      description: Retrieves all bookings
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  start_date:
+                    type: string
+                  end_date:
+                    type: string
+                  city:
+                    type: string
+                  vehicle_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - start_date
+                - end_date
+                - city
+                - vehicle_id
+                - user_id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    post:
+      summary: Create a booking
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+                city:
+                  type: string
+                user_id:
+                  type: integer
+              required:
+              - start_date
+              - end_date
+              - city
+              - user_id
+        description: Create a booking
+  "/api/v1/vehicles/{vehicle_id}/bookings/{id}":
+    get:
+      summary: Retrieve a booking
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: Booking identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  start_date:
+                    type: string
+                  end_date:
+                    type: string
+                  city:
+                    type: string
+                  vehicle_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - start_date
+                - end_date
+                - city
+                - vehicle_id
+                - user_id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/v1/users/{user_id}/bookings":
+    get:
+      summary: Retrieves bookings
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      description: Retrieves all bookings
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  start_date:
+                    type: string
+                  end_date:
+                    type: string
+                  city:
+                    type: string
+                  vehicle_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - start_date
+                - end_date
+                - city
+                - vehicle_id
+                - user_id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    post:
+      summary: Create a booking
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                start_date:
+                  type: string
+                end_date:
+                  type: string
+                city:
+                  type: string
+                vehicle_id:
+                  type: integer
+              required:
+              - start_date
+              - end_date
+              - city
+              - vehicle_id
+        description: Create a booking
+  "/api/v1/users/{user_id}/bookings/{id}":
+    get:
+      summary: Retrieve a booking
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Bookings
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      - name: id
+        in: path
+        required: true
+        description: Booking identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  start_date:
+                    type: string
+                  end_date:
+                    type: string
+                  city:
+                    type: string
+                  vehicle_id:
+                    type: integer
+                  user_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - start_date
+                - end_date
+                - city
+                - vehicle_id
+                - user_id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+  "/api/v1/vehicles/{vehicle_id}/galleries":
+    get:
+      summary: Retrieves galleries
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Galleries
+      description: Retrieves all galleries
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  photo:
+                    type: string
+                  vehicle_id:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - photo
+                - vehicle_id
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    post:
+      summary: Creates a gallery
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Galleries
+      parameters:
+      - name: vehicle_id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                photo:
+                  type: string
+              required:
+              - photo
+        required: true
+        description: Gallery data
+  "/api/v1/users":
+    get:
+      summary: List users
+      tags:
+      - Users
+      description: Retrieves all users
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - name
+                - email
+    post:
+      summary: Create a user
+      tags:
+      - Users
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - name
+              - email
+              - password
+        description: Create a user
+  "/api/v1/users/{id}":
+    get:
+      summary: Retrieves a user
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Users
+      description: Retrieves a user
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - name
+                - email
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+    put:
+      summary: Updates a user
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Users
+      description: Updates a user
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - name
+                - email
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                role:
+                  type: string
+              required:
+              - name
+              - email
+              - password
+        description: Updates a user
+    delete:
+      summary: Delete a user
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Users
+      description: Delete a user
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: User identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  email:
+                    type: string
+                  role:
+                    type: string
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - name
+                - email
+  "/api/v1/vehicles":
+    get:
+      summary: List vehicles
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Vehicles
+      description: Retrieves all vehicles
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  model:
+                    type: string
+                  description:
+                    type: string
+                  year:
+                    type: string
+                  brand:
+                    type: string
+                  color:
+                    type: string
+                  country:
+                    type: string
+                  power:
+                    type: string
+                  max_speed:
+                    type: string
+                  acceleration:
+                    type: string
+                  price:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - model
+                - price
+        '401':
+          description: Unauthorized
+    post:
+      summary: Create a vehicle
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Vehicles
+      parameters: []
+      responses:
+        '200':
+          description: OK
+        '422':
+          description: Unprocessable entity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                model:
+                  type: string
+                description:
+                  type: string
+                year:
+                  type: string
+                brand:
+                  type: string
+                color:
+                  type: string
+                country:
+                  type: string
+                power:
+                  type: string
+                max_speed:
+                  type: string
+                acceleration:
+                  type: string
+                price:
+                  type: integer
+              required:
+              - model
+              - price
+        description: Create a vehicle
+  "/api/v1/vehicles/{id}":
+    get:
+      summary: Retrieve a vehicle
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Vehicles
+      description: Retrieves a vehicle
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  model:
+                    type: string
+                  description:
+                    type: string
+                  year:
+                    type: string
+                  brand:
+                    type: string
+                  color:
+                    type: string
+                  country:
+                    type: string
+                  power:
+                    type: string
+                  max_speed:
+                    type: string
+                  acceleration:
+                    type: string
+                  price:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - model
+                - price
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not found
+    delete:
+      summary: Delete a vehicle
+      security:
+      - ApiKeyAuth: []
+      tags:
+      - Vehicles
+      description: Delete a vehicle
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: Vehicle identification
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  model:
+                    type: string
+                  description:
+                    type: string
+                  year:
+                    type: string
+                  brand:
+                    type: string
+                  color:
+                    type: string
+                  country:
+                    type: string
+                  power:
+                    type: string
+                  max_speed:
+                    type: string
+                  acceleration:
+                    type: string
+                  price:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                required:
+                - model
+                - price
+servers:
+- url: http://localhost:3000/
+  variables:
+    defaultHost:
+      default: localhost:3000/
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
