@@ -2,13 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Vehicle, type: :request do
   before(:each) do
-    User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
+    User.create(name: 'visitor', email: 'visitor@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'username',
+      name: 'visitor',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
     @token = json['token']
+    User.create(name: 'admin', email: 'admin@email.com', password: 'password', role: 'admin')
+    post '/api/v1/auth/login', params: {
+      name: 'admin',
+      password: 'password'
+    }.to_json
+    json_admin = JSON.parse(response.body).with_indifferent_access
+    @token_admin = json_admin['token']
     @vehicle = Vehicle.create(model: 'vehicle_model', description: 'vehicle_description', year: 'year',
                               brand: 'vehicle_brand', color: 'vehicle_color', country: 'vehicle_country',
                               power: 'num_HP', max_speed: 'num_km/h', acceleration: 'num s', price: 12_345)
@@ -80,17 +87,51 @@ RSpec.describe Vehicle, type: :request do
     end
   end
 
+  describe 'GET api/v1/vehicles/:id' do
+    it 'invalid without a valid vehicle' do
+      get '/api/v1/vehicles/0', headers: {
+        Authorization: @token
+      }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe 'POST api/v1/vehicles' do
-    before(:each) do
+    it 'invalid without authorization' do
+      post '/api/v1/vehicles', params: {
+        model: 'new_vehicle_model',
+        price: 999
+      }.to_json
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'POST api/v1/vehicles' do
+    it 'invalid with authorization for regular users' do
       post '/api/v1/vehicles', params: {
         model: 'new_vehicle_model',
         price: 999
       }.to_json, headers: {
         Authorization: @token
       }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'POST api/v1/vehicles' do
+    before(:each) do
+      post '/api/v1/vehicles', params: {
+        model: 'new_vehicle_model',
+        price: 999
+      }.to_json, headers: {
+        Authorization: @token_admin
+      }
     end
 
-    it 'valid with authorization' do
+    it 'valid with authorization for admin users' do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
@@ -106,9 +147,9 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'POST api/v1/vehicles' do
-    it 'invalid without body parameters' do
+    it 'invalid without body parameters for admin users' do
       post '/api/v1/vehicles', params: {}.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create vehicle.')
@@ -118,11 +159,11 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'POST api/v1/vehicles' do
-    it 'invalid with invalid body parameters' do
+    it 'invalid with invalid body parameters for admin users' do
       post '/api/v1/vehicles', params: {
         name: 'banana'
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create vehicle.')
@@ -132,12 +173,12 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'POST api/v1/vehicles' do
-    it 'invalid without model parameter' do
+    it 'invalid without model parameter for admin users' do
       post '/api/v1/vehicles', params: {
         description: 'new_vehicle_description',
         price: 750
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create vehicle.')
@@ -147,11 +188,11 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'POST api/v1/vehicles' do
-    it 'invalid without price parameter' do
+    it 'invalid without price parameter for admin users' do
       post '/api/v1/vehicles', params: {
         model: 'new_vehicle_model'
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create vehicle.')
@@ -161,13 +202,42 @@ RSpec.describe Vehicle, type: :request do
   end
 
   describe 'DELETE api/v1/vehicles/:id' do
-    it 'valid with authorization' do
+    it 'invalid without authorization' do
+      delete "/api/v1/vehicles/#{@vehicle.id}"
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'DELETE api/v1/vehicles/:id' do
+    it 'invalid with authorization for regular users' do
       other = Vehicle.create(model: 'other_model', price: 123)
       delete "/api/v1/vehicles/#{other.id}", headers: {
         Authorization: @token
       }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'DELETE api/v1/vehicles/:id' do
+    it 'valid with authorization for admin users' do
+      other = Vehicle.create(model: 'other_model', price: 123)
+      delete "/api/v1/vehicles/#{other.id}", headers: {
+        Authorization: @token_admin
+      }
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe 'DELETE api/v1/vehicles/:id' do
+    it 'invalid without valid vehicle for admin users' do
+      delete '/api/v1/vehicles/0', headers: {
+        Authorization: @token_admin
+      }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end

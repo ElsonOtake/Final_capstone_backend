@@ -2,14 +2,20 @@ require 'rails_helper'
 
 RSpec.describe User, type: :request do
   before(:each) do
-    user = User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
-    @id = user.id
+    @user = User.create(name: 'user', email: 'user@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'username',
+      name: 'user',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
     @token = json['token']
+    @admin = User.create(name: 'admin', email: 'admin@email.com', password: 'password', role: 'admin')
+    post '/api/v1/auth/login', params: {
+      name: 'admin',
+      password: 'password'
+    }.to_json
+    json_admin = JSON.parse(response.body).with_indifferent_access
+    @token_admin = json_admin['token']
   end
 
   describe 'GET api/v1/users' do
@@ -41,7 +47,7 @@ RSpec.describe User, type: :request do
 
   describe 'GET api/v1/users/:id' do
     it 'invalid without authorization' do
-      get "/api/v1/users/#{@id}"
+      get "/api/v1/users/#{@user.id}"
       expect(response.status).to eq(401)
       expect(response).to have_http_status(:unauthorized)
     end
@@ -49,7 +55,7 @@ RSpec.describe User, type: :request do
 
   describe 'GET api/v1/users/:id' do
     before(:each) do
-      get "/api/v1/users/#{@id}", headers: {
+      get "/api/v1/users/#{@user.id}", headers: {
         Authorization: @token
       }
     end
@@ -61,11 +67,20 @@ RSpec.describe User, type: :request do
 
     it 'return json file with user data' do
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['id']).to eq(@id)
-      expect(json['name']).to eq('username')
-      expect(json['email']).to eq('username@email.com')
-      expect(json['role']).to eq('admin')
+      expect(json['id']).to eq(@user.id)
+      expect(json['name']).to eq('user')
+      expect(json['email']).to eq('user@email.com')
       expect(json.keys).to match_array(%w[id name created_at updated_at email role])
+    end
+  end
+
+  describe 'GET api/v1/users/:id' do
+    it 'invalid without a valid user' do
+      get '/api/v1/users/0', headers: {
+        Authorization: @token
+      }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
     end
   end
 
@@ -178,8 +193,21 @@ RSpec.describe User, type: :request do
   end
 
   describe 'PUT api/v1/users/:id' do
-    before(:each) do
-      put "/api/v1/users/#{@id}", params: {
+    it 'invalid without authorization' do
+      put "/api/v1/users/#{@user.id}", params: {
+        name: 'rename_username',
+        password: 'rename_password',
+        email: 'rename_username@email.com',
+        role: 'admin'
+      }.to_json
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'PUT api/v1/users/:id' do
+    it 'invalid with authorization for regular users' do
+      put "/api/v1/users/#{@user.id}", params: {
         name: 'rename_username',
         password: 'rename_password',
         email: 'rename_username@email.com',
@@ -187,14 +215,29 @@ RSpec.describe User, type: :request do
       }.to_json, headers: {
         Authorization: @token
       }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'PUT api/v1/users/:id' do
+    before(:each) do
+      put "/api/v1/users/#{@user.id}", params: {
+        name: 'rename_username',
+        password: 'rename_password',
+        email: 'rename_username@email.com',
+        role: 'admin'
+      }.to_json, headers: {
+        Authorization: @token_admin
+      }
     end
 
-    it 'valid with authorization' do
+    it 'valid with authorization for admin users' do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
 
-    it 'return json file with user data' do
+    it 'return json file with user data for admin users' do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['id']).to be_an(Integer)
       expect(json['name']).to eq('rename_username')
@@ -206,19 +249,19 @@ RSpec.describe User, type: :request do
 
   describe 'PUT api/v1/users/:id' do
     before(:each) do
-      put "/api/v1/users/#{@id}", params: {
+      put "/api/v1/users/#{@user.id}", params: {
         role: 'admin'
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
     end
 
-    it 'valid with authorization' do
+    it 'valid with authorization for admin users' do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
 
-    it 'return json file with partial user data' do
+    it 'return json file with partial user data for admin users' do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['id']).to be_an(Integer)
       expect(json['role']).to eq('admin')
@@ -227,9 +270,9 @@ RSpec.describe User, type: :request do
   end
 
   describe 'PUT api/v1/users/:id' do
-    it 'invalid without body parameters' do
-      put "/api/v1/users/#{@id}", params: {}.to_json, headers: {
-        Authorization: @token
+    it 'invalid without body parameters for admin users' do
+      put "/api/v1/users/#{@user.id}", params: {}.to_json, headers: {
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not update user.')
@@ -239,11 +282,11 @@ RSpec.describe User, type: :request do
   end
 
   describe 'PUT api/v1/users/:id' do
-    it 'invalid with invalid body parameters' do
-      put "/api/v1/users/#{@id}", params: {
+    it 'invalid with invalid body parameters for admin users' do
+      put "/api/v1/users/#{@user.id}", params: {
         account: 'banana'
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not update user.')
@@ -253,13 +296,42 @@ RSpec.describe User, type: :request do
   end
 
   describe 'DELETE api/v1/users/:id' do
-    it 'valid with authorization' do
+    it 'invalid without authorization' do
+      delete "/api/v1/users/#{@user.id}"
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'DELETE api/v1/users/:id' do
+    it 'valid with authorization for admin users' do
+      other = User.create(name: 'other', email: 'other@email.com', password: 'otherpassword')
+      delete "/api/v1/users/#{other.id}", headers: {
+        Authorization: @token_admin
+      }
+      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe 'DELETE api/v1/users/:id' do
+    it 'invalid with authorization for regular users' do
       other = User.create(name: 'other', email: 'other@email.com', password: 'otherpassword')
       delete "/api/v1/users/#{other.id}", headers: {
         Authorization: @token
       }
-      expect(response.status).to eq(200)
-      expect(response).to have_http_status(:success)
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'DELETE api/v1/users/:id' do
+    it 'invalid without valid user' do
+      delete '/api/v1/users/0', headers: {
+        Authorization: @token_admin
+      }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
     end
   end
 end
