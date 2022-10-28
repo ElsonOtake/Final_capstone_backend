@@ -1,5 +1,4 @@
 class Api::V1::BookingsController < ApplicationController
-  # load_and_authorize_resource
   before_action :authorize_request
 
   ALLOWED_DATA = %(user_id vehicle_id start_date end_date city).freeze
@@ -21,8 +20,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def index
-    index_vehicle if params.include?('vehicle_id')
-    index_user if params.include?('user_id')
+    params.include?('vehicle_id') ? index_vehicle : index_user
   end
 
   def show_vehicle
@@ -42,8 +40,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def show
-    show_vehicle if params.include?('vehicle_id')
-    show_user if params.include?('user_id')
+    params.include?('vehicle_id') ? show_vehicle : show_user
   end
 
   def create_vehicle_booking
@@ -76,8 +73,10 @@ class Api::V1::BookingsController < ApplicationController
       return render json: { error: 'Empty body. Could not create booking.' },
                     status: :unprocessable_entity
     end
+    create_user_booking if @data.include?('vehicle_id')
+    create_vehicle_booking if @data.include?('user_id')
+    return if @data.include?('vehicle_id') || @data.include?('user_id')
 
-    create_vehicle_booking if params.include?('vehicle_id')
-    create_user_booking if params.include?('user_id')
+    render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
   end
 end

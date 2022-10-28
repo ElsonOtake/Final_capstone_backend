@@ -5,4 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   has_many :bookings, dependent: :destroy
   validates :name, presence: true
+
+  def is?(requested_role)
+    role == requested_role.to_s
+  end
 end

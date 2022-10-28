@@ -2,13 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Gallery, type: :request do
   before(:each) do
-    User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
+    User.create(name: 'visitor', email: 'visitor@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'username',
+      name: 'visitor',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
     @token = json['token']
+    User.create(name: 'admin', email: 'admin@email.com', password: 'password', role: 'admin')
+    post '/api/v1/auth/login', params: {
+      name: 'admin',
+      password: 'password'
+    }.to_json
+    json_admin = JSON.parse(response.body).with_indifferent_access
+    @token_admin = json_admin['token']
     @vehicle = Vehicle.create(model: 'vehicle_model', price: 12_345)
     @vehicle.galleries.create(photo: 'photo.jpg')
   end
@@ -66,11 +73,11 @@ RSpec.describe Gallery, type: :request do
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
         photo: 'photo.png'
       }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
     end
 
-    it 'valid with authorization' do
+    it 'valid with authorization for admin user' do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
@@ -84,24 +91,22 @@ RSpec.describe Gallery, type: :request do
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid without body parameters' do
-      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {}.to_json, headers: {
-        Authorization: @token
-      }
-      json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Empty body. Could not create gallery.')
-      expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
-    end
-  end
-
-  describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid with invalid body parameters' do
+    it 'invalid with authorization for regular user' do
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
-        account: 'banana'
+        photo: 'photo.png'
       }.to_json, headers: {
         Authorization: @token
       }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
+    it 'invalid without body parameters for admin users' do
+      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {}.to_json, headers: {
+        Authorization: @token_admin
+      }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create gallery.')
       expect(response.status).to eq(422)
@@ -110,9 +115,23 @@ RSpec.describe Gallery, type: :request do
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid without photo parameter' do
+    it 'invalid with invalid body parameters for admin users' do
+      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
+        account: 'banana'
+      }.to_json, headers: {
+        Authorization: @token_admin
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to eq('Empty body. Could not create gallery.')
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_entity)
+    end
+  end
+
+  describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
+    it 'invalid without photo parameter for admin users' do
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: { vehicle_id: @vehicle.id }.to_json, headers: {
-        Authorization: @token
+        Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create gallery.')

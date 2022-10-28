@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Booking, type: :request do
   before(:each) do
-    @user = User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
+    @user = User.create(name: 'visitor', email: 'visitor@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'username',
+      name: 'visitor',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
@@ -398,7 +398,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         end_date: '2022-10-25',
         city: 'Berlin',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -414,7 +414,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         city: 'Berlin',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -430,7 +430,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         end_date: '2022-10-25',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -442,7 +442,7 @@ RSpec.describe Booking, type: :request do
   end
 
   describe 'POST api/v1/users/:user_id/bookings' do
-    it 'invalid without user_id parameter' do
+    it 'invalid without vehicle_id parameter' do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         end_date: '2022-10-25',
