@@ -88,6 +88,14 @@ RSpec.describe Booking, type: :request do
     end
   end
 
+  describe 'GET api/v1/vehicles/:vehicle_id/bookings/:id' do
+    it 'invalid without a valid booking' do
+      get "/api/v1/vehicles/#{@vehicle.id}/bookings/0", headers: { Authorization: @token }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe 'POST api/v1/vehicles/:vehicle_id/bookings' do
     it 'invalid without authorization' do
       post "/api/v1/vehicles/#{@vehicle.id}/bookings", params: {
@@ -309,6 +317,14 @@ RSpec.describe Booking, type: :request do
     end
   end
 
+  describe 'GET api/v1/users/:user_id/bookings/:id' do
+    it 'invalid without a valid booking' do
+      get "/api/v1/users/#{@user.id}/bookings/0", headers: { Authorization: @token }
+      expect(response.status).to eq(404)
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe 'POST api/v1/users/:user_id/bookings' do
     it 'invalid without authorization' do
       post "/api/v1/users/#{@user.id}/bookings", params: {
@@ -382,7 +398,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         end_date: '2022-10-25',
         city: 'Berlin',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -398,7 +414,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         city: 'Berlin',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -414,7 +430,7 @@ RSpec.describe Booking, type: :request do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         end_date: '2022-10-25',
-        user_id: @user.id
+        vehicle_id: @vehicle.id
       }.to_json, headers: {
         Authorization: @token
       }
@@ -426,7 +442,7 @@ RSpec.describe Booking, type: :request do
   end
 
   describe 'POST api/v1/users/:user_id/bookings' do
-    it 'invalid without user_id parameter' do
+    it 'invalid without vehicle_id parameter' do
       post "/api/v1/users/#{@user.id}/bookings", params: {
         start_date: '2022-10-21',
         end_date: '2022-10-25',
