@@ -14,7 +14,10 @@ class Api::V1::GalleriesController < ApplicationController
   def create
     if current_user.is? :admin
       data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-      return render json: { error: 'Empty body. Could not create gallery.' }, status: :unprocessable_entity unless data
+      if data.empty?
+        return render json: { error: 'Empty body. Could not create gallery.' },
+                      status: :unprocessable_entity
+      end
 
       vehicle = Vehicle.find(params[:vehicle_id])
       gallery = vehicle.galleries.new(data)

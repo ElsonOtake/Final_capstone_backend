@@ -20,7 +20,10 @@ class Api::V1::VehiclesController < ApplicationController
   def create
     if current_user.is? :admin
       data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-      return render json: { error: 'Empty body. Could not create vehicle.' }, status: :unprocessable_entity if data.empty?
+      if data.empty?
+        return render json: { error: 'Empty body. Could not create vehicle.' },
+                      status: :unprocessable_entity
+      end
 
       vehicle = Vehicle.new(data)
       if vehicle.save
