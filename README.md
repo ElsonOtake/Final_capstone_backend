@@ -1,20 +1,22 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Final_capstone_backend
 
-> The project you are going to build for the Final Capstone Project is based on an app to book an appointment to try a special vehicle.
+# FINAL CAPSTONE (BACK END)
+In this project, we created a website for renting exotic cars (exo-cars). It fetches data from an API we also created and deployed on Heroku. It allows users to register with token validation, see the available cars and make reservations. Admins are allowed to add and remove cars from the database.
 
 
 ## Built With
 
 - Ruby on Rails
-- Devise
-- CanCanCan
+- devise
+- jwt
+- rspec-rails
+- rswag
 
 
-## Live Demo (if available)
+## Live Demo
 
-[Live Demo Link](https://livedemo.com)
+[API documentation](https://elsonotake-backend.herokuapp.com/api-docs/index.html)
 
 
 ## Getting Started
@@ -66,13 +68,16 @@ Cloning a repository
 - Run `rails server`;
 
 
-### Install
-
-### Usage
-
 ### Run tests
 
-### Deployment
+- Open your terminal;
+
+- Go to application folder;
+
+- run `rspec spec/requests` for test the requests;
+
+- run `rspec spec/models` for test the models.
+
 
 ## Authors
 
@@ -118,6 +123,8 @@ Give a ⭐️ if you like this project!
 - Microverse
 - W3Schools
 - Stack Overflow
+
+This site is based on the [design](https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign) created by [Murat Korkmaz](https://www.behance.net/muratk) on Behance, this design is under the [Creative Commons license of the design](https://creativecommons.org/licenses/by-nc/4.0/).
 
 
 ## 📝 License
