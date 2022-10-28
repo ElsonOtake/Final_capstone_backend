@@ -5,6 +5,10 @@
 In this project, we created a website for renting exotic cars (exo-cars). It fetches data from an API we also created and deployed on Heroku. It allows users to register with token validation, see the available cars and make reservations. Admins are allowed to add and remove cars from the database.
 
 
+## Front-end REPO
+[final-capstone-frontend](https://github.com/mgmediaweb/final-capstone-frontend)
+
+
 ## Built With
 
 - Ruby on Rails
