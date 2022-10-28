@@ -777,10 +777,10 @@ paths:
                 - model
                 - price
 servers:
-- url: https://elsonotake-backend.herokuapp.com/
+- url: http://localhost:3000/
   variables:
     defaultHost:
-      default: elsonotake-backend.herokuapp.com/
+      default: localhost:3000/
 components:
   securitySchemes:
     ApiKeyAuth:
