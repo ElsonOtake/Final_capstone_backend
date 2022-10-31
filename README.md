@@ -39,9 +39,9 @@ Cloning a repository
 
   - To clone the repository using HTTPS : `https://github.com/ElsonOtake/Final_capstone_backend.git`
 
-  - To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority : `git@github.com:ElsonOtake/Final_capstone_backen.git`
+  - To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority : `git@github.com:ElsonOtake/Final_capstone_backend.git`
 
-  - To clone a repository using GitHub CLI : `gh repo clone ElsonOtake/Final_capstone_backen`
+  - To clone a repository using GitHub CLI : `gh repo clone ElsonOtake/Final_capstone_backend`
 
 - Open Terminal;
 
