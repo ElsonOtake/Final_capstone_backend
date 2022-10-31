@@ -6,6 +6,7 @@ In this project, we created a website for renting exotic cars (exo-cars). It fet
 
 
 ## Front-end Repo
+
 [final-capstone-frontend](https://github.com/mgmediaweb/final-capstone-frontend)
 
 
