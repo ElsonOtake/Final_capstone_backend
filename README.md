@@ -6,6 +6,8 @@ In this project, we created a website for renting exotic cars (exo-cars). It fet
 
 ### Grop of 4 people
 
+[Link to Kanbanboard](https://github.com/ElsonOtake/Final_capstone_backend/projects/1)
+
 [Initial Kanbanboard Image](./kanbanboard.png)
 
 
