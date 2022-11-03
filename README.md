@@ -4,6 +4,10 @@
 # FINAL CAPSTONE (BACK END)
 In this project, we created a website for renting exotic cars (exo-cars). It fetches data from an API we also created and deployed on Heroku. It allows users to register with token validation, see the available cars and make reservations. Admins are allowed to add and remove cars from the database.
 
+### Grop of 4 people
+
+[Initial Kanbanboard Image](./kanbanboard.png)
+
 
 ## Front-end Repo
 
