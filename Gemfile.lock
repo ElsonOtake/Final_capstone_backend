@@ -111,6 +111,8 @@ GEM
       addressable (>= 2.8)
     jsonapi-renderer (0.2.2)
     jwt (2.5.0)
+    kramdown (2.4.0)
+      rexml
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -188,6 +190,10 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
     rspec-core (3.11.0)
       rspec-support (~> 3.11.0)
     rspec-expectations (3.11.1)
@@ -260,10 +266,13 @@ DEPENDENCIES
   dotenv-rails
   figaro
   jwt
+  kramdown
   pg (~> 1.1)
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.4)
+  rake
+  rspec
   rspec-rails
   rswag
   rubocop
