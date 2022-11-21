@@ -1,102 +1,164 @@
-![](https://img.shields.io/badge/Microverse-blueviolet)
+<a name="readme-top"></a>
 
+<!-- TABLE OF CONTENTS -->
 
-# FINAL CAPSTONE (BACK END)
-In this project, we created a website for renting exotic cars (exo-cars). It fetches data from an API we also created and deployed on Heroku. It allows users to register with token validation, see the available cars and make reservations. Admins are allowed to add and remove cars from the database.
+# 📗 Table of Contents
 
-### Grop of 4 people
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+  - [🚀 Live Demo](#live-demo)
+- [💻 Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Run tests](#run-tests)
+- [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
+- [📝 License](#license)
 
-[Link to Kanbanboard](https://github.com/ElsonOtake/Final_capstone_backend/projects/1)
+<!-- PROJECT DESCRIPTION -->
 
-[Initial Kanbanboard Image](./kanbanboard.png)
+# 📖 Exo Cars - Final Capstone (Back End) <a name="about-project"></a>
 
+**Exo Cars** is a website for renting exotic cars. It allows users to register, see the available cars and make reservations. Admin users are allowed to add and remove cars from the database.
 
 ## Front-end Repo
 
-[final-capstone-frontend](https://github.com/mgmediaweb/final-capstone-frontend)
+[Final Capstone Front End](https://github.com/mgmediaweb/final-capstone-frontend)
 
+## 🛠 Built With <a name="built-with"></a>
 
-## Built With
+### Tech Stack <a name="tech-stack"></a>
 
-- Ruby on Rails
-- Postgresql
-- devise
-- jwt
-- rspec-rails
-- rswag
+<details>
+  <summary>Client</summary>
+  <ul>
+    <li><a href="https://reactjs.org/">React.js</a></li>
+  </ul>
+</details>
 
+<details>
+  <summary>Server</summary>
+  <ul>
+    <li><a href="https://rubyonrails.org/">Ruby on Rails</a></li>
+    <li><a href="https://rubygems.org/gems/devise/">Devise</a></li>
+    <li><a href="https://jwt.io/">JWT</a></li>
+    <li><a href="https://github.com/rspec/rspec-rails">RSpec Rails</a></li>
+    <li><a href="https://github.com/rswag/rswag">Rswag</a></li>
+  </ul>
+</details>
 
-## Live Demo
+<details>
+<summary>Database</summary>
+  <ul>
+    <li><a href="https://www.postgresql.org/">PostgreSQL</a></li>
+  </ul>
+</details>
 
-[EXO-CARS](https://exo-cars.herokuapp.com)
+<!-- Features -->
 
+### Key Features <a name="key-features"></a>
 
-[API documentation](https://elsonotake-backend.herokuapp.com/api-docs/index.html)
+- **REST API**
+- **Authentication**
+- **[API documentation](https://swagger.io/solutions/api-documentation/)**
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Getting Started
+<!-- LIVE DEMO -->
 
-To get a local copy, follow these simple steps.
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- [Front End Live Demo Link](https://exo-cars.herokuapp.com)
+
+- [API documentation](https://elsonotake-backend.herokuapp.com/api-docs/index.html)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
 
 ### Prerequisites
 
-Web browser installed
+In order to run this project you need:
+
+[Ruby](https://www.ruby-lang.org/en/)
 
 ### Setup
 
-Cloning a repository
+Clone this repository to your desired folder:
 
-- On GitHub.com, navigate to the main page of the repository;
+using HTTPS:
+```sh
+  git clone https://github.com/ElsonOtake/Final_capstone_backend.git
+  cd Final_capstone_backend
+```
 
-- Above the list of files, click "Code" button;
+using an SSH key:
+```sh
+  git clone git@github.com:ElsonOtake/Final_capstone_backend.git
+  cd Final_capstone_backend
+```
 
-- Copy the URL to clone the repository. 
+using GitHub CLI:
+```sh
+  git clone gh repo clone ElsonOtake/Final_capstone_backend
+  cd Final_capstone_backend
+```
 
-  - To clone the repository using HTTPS : `https://github.com/ElsonOtake/Final_capstone_backend.git`
+### Install
 
-  - To clone the repository using an SSH key, including a certificate issued by your organization's SSH certificate authority : `git@github.com:ElsonOtake/Final_capstone_backend.git`
+Add the following content to the `config/application.yml` filling in your Postgres username and password:
 
-  - To clone a repository using GitHub CLI : `gh repo clone ElsonOtake/Final_capstone_backend`
-
-- Open Terminal;
-
-- Change the current working directory to the location where you want the cloned directory;
-
-- Type `git clone`, and then paste the URL you copied earlier;
-
-- Change the current working directory to the location of your cloned directory;
-
-- Run `bundle install`;
-
-- Run `bundle exec figaro install`;
-
-- Add the following content to the `config/application.yml` filling in your Postgres username and password:
-
-  ```
+```sh
   DATABASE_HOST: localhost
   DATABASE_USER: your_username
   DATABASE_PASSWORD: your_password
-  ```
+```
 
-- Run `rails db:create db:migrate db:seed`
+Install this project with:
+```sh
+  bundle install
+  bundle exec figaro install
+  rails db:create db:migrate db:seed
+```
 
-- Run `rails server`;
+### Usage
 
+To run the project, execute the following command:
+
+```sh
+  rails server
+```
 
 ### Run tests
 
-- Open your terminal;
+To run tests, run the following command:
 
-- Go to application folder;
+```sh
+  rspec spec/requests
+  rspec spec/models
+```
 
-- run `rspec spec/requests` for test the requests;
+To generate the [API documentation](http://localhost:3000/api-docs/index.html):
+```sh
+  rake rswag:specs:swaggerize
+```
 
-- run `rspec spec/models` for test the models;
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- run `rake rswag:specs:swaggerize` to generate the [API documentation](http://localhost:3000/api-docs/index.html).
+<!-- AUTHORS -->
 
-
-## Authors
+## 👥 Authors <a name="authors"></a>
 
 👤 **Antonio Hincapié**
 
@@ -122,28 +184,52 @@ Cloning a repository
 - Twitter: [@GonzoMedinaDev](https://twitter.com/GonzoMedinaDev)
 - LinkedIn: [gonzalo-medina-g](https://www.linkedin.com/in/gonzalo-medina-g/)
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 🤝 Contributing
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- [ ] **Implement Postgresql date range type for bookings**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
 
 Contributions, issues, and feature requests are welcome!
 
 Feel free to check the [issues page](../../issues/).
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Show your support
+<!-- SUPPORT -->
+
+## ⭐️ Show your support <a name="support"></a>
 
 Give a ⭐️ if you like this project!
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Acknowledgments
+<!-- ACKNOWLEDGEMENTS -->
 
-- Microverse
-- W3Schools
-- Stack Overflow
+## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+I would like to thank:
+
+- [Microverse](https://www.microverse.org/)
+- [W3Schools](https://www.w3schools.com/)
+- [Stack Overflow](https://stackoverflow.com/)
 
 This site is based on the [design](https://www.behance.net/gallery/26425031/Vespa-Responsive-Redesign) created by [Murat Korkmaz](https://www.behance.net/muratk) on Behance, this design is under the [Creative Commons license of the design](https://creativecommons.org/licenses/by-nc/4.0/).
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 📝 License
+<!-- LICENSE -->
+
+## 📝 License <a name="license"></a>
 
 This project is [MIT](./MIT.md) licensed.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
