@@ -117,7 +117,13 @@ using GitHub CLI:
 
 ### Install
 
-Add the following content to the `config/application.yml` filling in your Postgres username and password:
+Install this project with:
+```sh
+  bundle install
+  bundle exec figaro install
+````
+
+Add the following content to the `config/application.yml` and fill in your Postgres username and password:
 
 ```sh
   DATABASE_HOST: localhost
@@ -125,10 +131,8 @@ Add the following content to the `config/application.yml` filling in your Postgr
   DATABASE_PASSWORD: your_password
 ```
 
-Install this project with:
+Create the database and load the initial data:
 ```sh
-  bundle install
-  bundle exec figaro install
   rails db:create db:migrate db:seed
 ```
 
