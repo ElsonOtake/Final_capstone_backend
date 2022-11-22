@@ -5,10 +5,10 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-User.create(name: 'Elson', email: 'elson@capstone.com', password: 'password')
-User.create(name: 'Giuseppe', email: 'giuseppe@capstone.com', password: 'password', role: 'admin')
-User.create(name: 'Gonzalo', email: 'gonzalo@capstone.com', password: 'password', role: 'admin')
-User.create(name: 'Antonio', email: 'antonio@capstone.com', password: 'password', role: 'admin')
+User.create(name: 'Elson', email: 'elson@capstone.com', password: 'exopasswords')
+User.create(name: 'Giuseppe', email: 'giuseppe@capstone.com', password: 'exopasswords', role: 'admin')
+User.create(name: 'Gonzalo', email: 'gonzalo@capstone.com', password: 'exopasswords', role: 'admin')
+User.create(name: 'Antonio', email: 'antonio@capstone.com', password: 'exopasswords', role: 'admin')
 Vehicle.create(model: 'DMC-12', year: '1985', brand: 'DeLorean', color: 'Silver', country: 'USA',
                power: '130 HP', max_speed: '175 km/h', acceleration: '9.5 s', price: 500,
                description: "The DMC DeLorean is a rear-engine two-passenger sports car manufactured and marketed by John DeLorean's DeLorean Motor Company (DMC) for the American market from 1981 until 1983")
