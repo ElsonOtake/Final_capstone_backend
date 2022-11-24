@@ -777,10 +777,10 @@ paths:
                 - model
                 - price
 servers:
-- url: http://localhost:3000/
+- url: https://elsonotake-exo-cars.onrender.com/
   variables:
     defaultHost:
-      default: localhost:3000/
+      default: elsonotake-exo-cars.onrender.com//
 components:
   securitySchemes:
     ApiKeyAuth:
