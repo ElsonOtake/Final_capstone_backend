@@ -35,7 +35,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'bootsnap', require: false
 
 # Gem to create env variables
-gem 'figaro'
+# gem 'figaro'
 
 # Authentication
 gem 'devise'
