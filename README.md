@@ -77,7 +77,7 @@
 
 - [Front End Live Demo Link](https://exo-cars.herokuapp.com)
 
-- [API documentation](https://elsonotake-backend.herokuapp.com/api-docs/index.html)
+- [API documentation](https://elsonotake-exo-cars.onrender.com/api-docs/index.html)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
