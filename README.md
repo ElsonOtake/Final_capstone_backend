@@ -75,7 +75,7 @@
 
 ## 🚀 Live Demo <a name="live-demo"></a>
 
-- [Front End Live Demo Link](https://exo-cars.herokuapp.com)
+- [Front End Live Demo Link](https://final-capstone-frontend-fkvzig4w0-elsonotake.vercel.app/login)
 
 - [API documentation](https://elsonotake-exo-cars.onrender.com/api-docs/index.html)
 
