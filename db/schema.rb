@@ -12,28 +12,7 @@
 
 ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "btree_gin"
-  enable_extension "btree_gist"
-  enable_extension "citext"
-  enable_extension "cube"
-  enable_extension "dblink"
-  enable_extension "dict_int"
-  enable_extension "dict_xsyn"
-  enable_extension "earthdistance"
-  enable_extension "fuzzystrmatch"
-  enable_extension "hstore"
-  enable_extension "intarray"
-  enable_extension "ltree"
-  enable_extension "pg_stat_statements"
-  enable_extension "pg_trgm"
-  enable_extension "pgcrypto"
-  enable_extension "pgrowlocks"
-  enable_extension "pgstattuple"
   enable_extension "plpgsql"
-  enable_extension "tablefunc"
-  enable_extension "unaccent"
-  enable_extension "uuid-ossp"
-  enable_extension "xml2"
 
   create_table "bookings", force: :cascade do |t|
     t.date "start_date"
@@ -47,15 +26,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
     t.index ["vehicle_id"], name: "index_bookings_on_vehicle_id"
   end
 
-  create_table "galleries", force: :cascade do |t|
-    t.string "photo"
-    t.bigint "vehicle_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["vehicle_id"], name: "index_galleries_on_vehicle_id"
-  end
-
-  create_table "users", force: :cascade do |t|
+  create_table "exo_cars_users", force: :cascade do |t|
     t.string "name"
     t.string "role"
     t.datetime "created_at", null: false
@@ -65,9 +36,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["name"], name: "index_users_on_name", unique: true
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_exo_cars_users_on_email", unique: true
+    t.index ["name"], name: "index_exo_cars_users_on_name", unique: true
+    t.index ["reset_password_token"], name: "index_exo_cars_users_on_reset_password_token", unique: true
+  end
+
+  create_table "galleries", force: :cascade do |t|
+    t.string "photo"
+    t.bigint "vehicle_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["vehicle_id"], name: "index_galleries_on_vehicle_id"
   end
 
   create_table "vehicles", force: :cascade do |t|
@@ -85,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_20_213820) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "bookings", "users"
+  add_foreign_key "bookings", "exo_cars_users", column: "user_id"
   add_foreign_key "bookings", "vehicles"
   add_foreign_key "galleries", "vehicles"
 end
