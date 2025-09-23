@@ -52,6 +52,7 @@ gem 'rubocop'
 gem 'rswag'
 
 gem 'kramdown'
+gem 'ostruct'
 gem 'rake'
 gem 'rspec'
 
