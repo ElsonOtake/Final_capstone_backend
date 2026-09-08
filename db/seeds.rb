@@ -27,15 +27,7 @@ if User.count.zero?
   Booking.create(start_date: '2022-10-31', end_date: '2022-11-02', city: 'Cancún', user_id: 3, vehicle_id: 2)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'San Andrés', user_id: 2, vehicle_id: 4)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'Punta Gallinas', user_id: 4, vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1985-DeLorean-DMC-12-Back-to-the-Future-007-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1985-DeLorean-DMC-12-Back-to-the-Future-008-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1985-DeLorean-DMC-12-Back-to-the-Future-009-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1985-DeLorean-DMC-12-Back-to-the-Future-010-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1985-DeLorean-DMC-12-Back-to-the-Future-011-1080.jpg',
+  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1981-DeLorean-DMC-12-001-1080.jpg',
                  vehicle_id: 1)
   Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-005-1080.jpg',
                  vehicle_id: 2)
