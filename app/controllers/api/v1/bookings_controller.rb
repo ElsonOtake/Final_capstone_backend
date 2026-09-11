@@ -73,10 +73,12 @@ class Api::V1::BookingsController < ApplicationController
       return render json: { error: 'Empty body. Could not create booking.' },
                     status: :unprocessable_entity
     end
-    create_user_booking if @data.include?('vehicle_id')
-    create_vehicle_booking if @data.include?('user_id')
-    return if @data.include?('vehicle_id') || @data.include?('user_id')
-
-    render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
+    if @data.include?('vehicle_id')
+      create_user_booking
+    elsif @data.include?('user_id')
+      create_vehicle_booking
+    else
+      render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
+    end
   end
 end
