@@ -7,16 +7,12 @@ class Api::V1::BookingsController < ApplicationController
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
     bookings = vehicle.bookings
     render json: bookings, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def index_user
     user = User.find_by_id!(params[:user_id])
     bookings = user.bookings
     render json: bookings, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User not found' }, status: :not_found
   end
 
   def index
@@ -27,16 +23,12 @@ class Api::V1::BookingsController < ApplicationController
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
     booking = vehicle.bookings.find_by_id!(params[:id])
     render json: booking, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle/Booking not found' }, status: :not_found
   end
 
   def show_user
     user = User.find_by_id!(params[:user_id])
     booking = user.bookings.find_by_id!(params[:id])
     render json: booking, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User/Booking not found' }, status: :not_found
   end
 
   def show
@@ -51,8 +43,6 @@ class Api::V1::BookingsController < ApplicationController
     else
       render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def create_user_booking
@@ -63,8 +53,6 @@ class Api::V1::BookingsController < ApplicationController
     else
       render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User not found' }, status: :not_found
   end
 
   def create

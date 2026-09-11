@@ -7,8 +7,6 @@ class Api::V1::GalleriesController < ApplicationController
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
     galleries = vehicle.galleries
     render json: galleries, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def create
@@ -30,7 +28,5 @@ class Api::V1::GalleriesController < ApplicationController
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized
     end
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 end

@@ -7,14 +7,10 @@ class Api::V1::VehiclesController < ApplicationController
   def index
     vehicles = Vehicle.all
     render json: vehicles, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicles not found' }, status: :not_found
   end
 
   def show
     render json: @vehicle, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def create
@@ -49,7 +45,5 @@ class Api::V1::VehiclesController < ApplicationController
 
   def find_vehicle
     @vehicle = Vehicle.find_by_id!(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 end
