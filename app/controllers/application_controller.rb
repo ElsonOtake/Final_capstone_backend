@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::API
+  attr_reader :current_user
+
   def json_payload
     return [] if request.raw_post.empty?
 
