@@ -1,9 +1,9 @@
 class AuthenticationController < ApplicationController
-  ALLOWED_DATA = %(name password).freeze
+  ALLOWED_DATA = %w[name password].freeze
 
   # POST /auth/login
   def login
-    data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+    data = json_payload.slice(*ALLOWED_DATA)
     @user = User.find_by_name!(data[:name])
     if @user.valid_password?(data[:password])
       token = JsonWebToken.encode(user_id: @user.id)

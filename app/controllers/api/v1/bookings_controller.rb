@@ -1,7 +1,7 @@
 class Api::V1::BookingsController < ApplicationController
   before_action :authorize_request
 
-  ALLOWED_DATA = %(user_id vehicle_id start_date end_date city).freeze
+  ALLOWED_DATA = %w[user_id vehicle_id start_date end_date city].freeze
 
   def index_vehicle
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
@@ -68,7 +68,7 @@ class Api::V1::BookingsController < ApplicationController
   end
 
   def create
-    @data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+    @data = json_payload.slice(*ALLOWED_DATA)
     if @data.empty?
       return render json: { error: 'Empty body. Could not create booking.' },
                     status: :unprocessable_entity

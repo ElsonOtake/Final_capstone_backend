@@ -1,7 +1,7 @@
 class Api::V1::GalleriesController < ApplicationController
   before_action :authorize_request
 
-  ALLOWED_DATA = %(photo).freeze
+  ALLOWED_DATA = %w[photo].freeze
 
   def index
     vehicle = Vehicle.find_by_id!(params[:vehicle_id])
@@ -13,7 +13,8 @@ class Api::V1::GalleriesController < ApplicationController
 
   def create
     if current_user.is? :admin
-      data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+      data = json_payload.slice(*ALLOWED_DATA)
+
       if data.empty?
         return render json: { error: 'Empty body. Could not create gallery.' },
                       status: :unprocessable_entity

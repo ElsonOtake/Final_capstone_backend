@@ -2,7 +2,7 @@ class Api::V1::VehiclesController < ApplicationController
   before_action :authorize_request
   before_action :find_vehicle, except: %i[create index]
 
-  ALLOWED_DATA = %(model description year brand color country power max_speed acceleration price).freeze
+  ALLOWED_DATA = %w[model description year brand color country power max_speed acceleration price].freeze
 
   def index
     vehicles = Vehicle.all
@@ -19,7 +19,7 @@ class Api::V1::VehiclesController < ApplicationController
 
   def create
     if current_user.is? :admin
-      data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+      data = json_payload.slice(*ALLOWED_DATA)
       if data.empty?
         return render json: { error: 'Empty body. Could not create vehicle.' },
                       status: :unprocessable_entity
