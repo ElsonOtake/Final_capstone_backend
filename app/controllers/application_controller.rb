@@ -1,4 +1,8 @@
 class ApplicationController < ActionController::API
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+
+  attr_reader :current_user
+
   def json_payload
     return [] if request.raw_post.empty?
 
@@ -16,11 +20,17 @@ class ApplicationController < ActionController::API
       begin
         @decoded = JsonWebToken.decode(header)
         @current_user = User.find_by_id!(@decoded[:user_id])
-      rescue ActiveRecord::RecordNotFound || JWT::DecodeError => e
+      rescue ActiveRecord::RecordNotFound, JWT::DecodeError => e
         render json: { errors: e.message }, status: :unauthorized
       end
     else
       render json: { errors: 'Unauthorized user' }, status: :unauthorized
     end
+  end
+
+  private
+
+  def render_not_found(exception)
+    render json: { errors: exception.message }, status: :not_found
   end
 end

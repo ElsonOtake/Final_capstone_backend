@@ -22,7 +22,7 @@ RSpec.configure do |config|
       },
       paths: {},
       servers: [{ url: 'https://elsonotake-exo-cars.onrender.com/',
-                  variables: { defaultHost: { default: 'elsonotake-exo-cars.onrender.com//' } } }],
+                  variables: { defaultHost: { default: 'elsonotake-exo-cars.onrender.com/' } } }],
       components: {
         securitySchemes: {
           ApiKeyAuth: {

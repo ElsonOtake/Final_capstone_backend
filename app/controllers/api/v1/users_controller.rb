@@ -2,7 +2,8 @@ class Api::V1::UsersController < ApplicationController
   before_action :authorize_request, except: %i[index create]
   before_action :find_user, except: %i[create index]
 
-  ALLOWED_DATA = %(name email password role).freeze
+  ALLOWED_DATA = %w[name email password role].freeze
+  CREATE_ALLOWED_DATA = (ALLOWED_DATA - %w[role]).freeze
 
   # GET /users
   def index
@@ -17,27 +18,27 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /users
   def create
-    data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) && allow != 'role' }
-    return render json: { error: 'Empty body. Could not create user.' }, status: :unprocessable_entity if data.empty?
+    data = json_payload.slice(*CREATE_ALLOWED_DATA)
+    return render json: { error: 'Empty body. Could not create user.' }, status: :unprocessable_content if data.empty?
 
     user = User.new(data)
     if user.save
       render json: user, status: :ok
     else
-      render json: { error: 'Could not create user.' }, status: :unprocessable_entity
+      render json: { error: user.errors.full_messages }, status: :unprocessable_content
     end
   end
 
   # PUT /users/:id
   def update
     if current_user.is? :admin
-      data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
-      return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_entity if data.empty?
+      data = json_payload.slice(*ALLOWED_DATA)
+      return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_content if data.empty?
 
       if @user.update(data)
         render json: @user, status: :ok
       else
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        render json: { error: @user.errors.full_messages }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized
@@ -58,7 +59,5 @@ class Api::V1::UsersController < ApplicationController
 
   def find_user
     @user = User.find_by_id!(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'User not found' }, status: :not_found
   end
 end

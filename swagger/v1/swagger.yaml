@@ -780,7 +780,7 @@ servers:
 - url: https://elsonotake-exo-cars.onrender.com/
   variables:
     defaultHost:
-      default: elsonotake-exo-cars.onrender.com//
+      default: elsonotake-exo-cars.onrender.com/
 components:
   securitySchemes:
     ApiKeyAuth:

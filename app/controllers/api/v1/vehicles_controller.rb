@@ -2,34 +2,30 @@ class Api::V1::VehiclesController < ApplicationController
   before_action :authorize_request
   before_action :find_vehicle, except: %i[create index]
 
-  ALLOWED_DATA = %(model description year brand color country power max_speed acceleration price).freeze
+  ALLOWED_DATA = %w[model description year brand color country power max_speed acceleration price].freeze
 
   def index
     vehicles = Vehicle.all
     render json: vehicles, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicles not found' }, status: :not_found
   end
 
   def show
     render json: @vehicle, status: :ok
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 
   def create
     if current_user.is? :admin
-      data = json_payload.select { |allow| ALLOWED_DATA.include?(allow) }
+      data = json_payload.slice(*ALLOWED_DATA)
       if data.empty?
         return render json: { error: 'Empty body. Could not create vehicle.' },
-                      status: :unprocessable_entity
+                      status: :unprocessable_content
       end
 
       vehicle = Vehicle.new(data)
       if vehicle.save
         render json: vehicle, status: :ok
       else
-        render json: { error: 'Could not create vehicle.' }, status: :unprocessable_entity
+        render json: { error: vehicle.errors.full_messages }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized
@@ -49,7 +45,5 @@ class Api::V1::VehiclesController < ApplicationController
 
   def find_vehicle
     @vehicle = Vehicle.find_by_id!(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { errors: 'Vehicle not found' }, status: :not_found
   end
 end
