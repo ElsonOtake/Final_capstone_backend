@@ -24,6 +24,14 @@ RSpec.describe User, type: :request do
       expect(response.status).to eq(200)
       expect(response).to have_http_status(:success)
     end
+
+    it 'invalid with a malformed token' do
+      get '/api/v1/users/1', headers: {
+        Authorization: 'Bearer not-a-real-token'
+      }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe 'GET api/v1/users' do
