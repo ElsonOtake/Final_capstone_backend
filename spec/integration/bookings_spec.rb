@@ -5,7 +5,7 @@ describe 'Bookings' do
     @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123')
     post '/api/v1/auth/login', params: { name: 'booking_user', password: 'password123' }.to_json
     @token = JSON.parse(response.body).with_indifferent_access[:token]
- 
+
     @vehicle = Vehicle.create(model: 'foo', price: 100)
     @booking = @vehicle.bookings.create(start_date: '2022-10-02', end_date: '2022-11-14', city: 'Rome',
                                         user_id: @user.id)
@@ -22,16 +22,16 @@ describe 'Bookings' do
       response '200', 'OK' do
         schema type: :array, items: {
           type: :object, properties: {
-                                id: { type: :integer },
-                                start_date: { type: :string },
-                                end_date: { type: :string },
-                                city: { type: :string },
-                                vehicle_id: { type: :integer },
-                                user_id: { type: :integer },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[start_date end_date city vehicle_id user_id]
+                           id: { type: :integer },
+                           start_date: { type: :string },
+                           end_date: { type: :string },
+                           city: { type: :string },
+                           vehicle_id: { type: :integer },
+                           user_id: { type: :integer },
+                           created_at: { type: :string },
+                           updated_at: { type: :string }
+                         },
+          required: %w[start_date end_date city vehicle_id user_id]
         }
 
         let(:vehicle_id) { @vehicle.id }
@@ -120,7 +120,7 @@ describe 'Bookings' do
         let(:Authorization) { @token }
         run_test!
       end
- 
+
       response '422', 'Unprocessable entity' do
         let(:vehicle_id) { @vehicle.id }
         let(:booking) { { city: 'Rome' } }
@@ -141,29 +141,29 @@ describe 'Bookings' do
       response '200', 'OK' do
         schema type: :array, items: {
           type: :object, properties: {
-                                id: { type: :integer },
-                                start_date: { type: :string },
-                                end_date: { type: :string },
-                                city: { type: :string },
-                                vehicle_id: { type: :integer },
-                                user_id: { type: :integer },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[start_date end_date city vehicle_id user_id]
+                           id: { type: :integer },
+                           start_date: { type: :string },
+                           end_date: { type: :string },
+                           city: { type: :string },
+                           vehicle_id: { type: :integer },
+                           user_id: { type: :integer },
+                           created_at: { type: :string },
+                           updated_at: { type: :string }
+                         },
+          required: %w[start_date end_date city vehicle_id user_id]
         }
 
         let(:user_id) { @user.id }
         let(:Authorization) { @token }
         run_test!
       end
- 
+
       response '401', 'Unauthorized' do
         let(:user_id) { @user.id }
         let(:Authorization) { nil }
         run_test!
       end
- 
+
       response '404', 'Not found' do
         let(:user_id) { 999_999 }
         let(:Authorization) { @token }
@@ -198,14 +198,14 @@ describe 'Bookings' do
         let(:Authorization) { @token }
         run_test!
       end
- 
+
       response '401', 'Unauthorized' do
         let(:user_id) { @user.id }
         let(:id) { @booking.id }
         let(:Authorization) { nil }
         run_test!
       end
- 
+
       response '404', 'Not found' do
         let(:user_id) { @user.id }
         let(:id) { 999_999 }
@@ -239,7 +239,7 @@ describe 'Bookings' do
         let(:Authorization) { @token }
         run_test!
       end
- 
+
       response '422', 'Unprocessable entity' do
         let(:user_id) { @user.id }
         let(:booking) { { city: 'Rome' } }
