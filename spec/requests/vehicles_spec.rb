@@ -27,6 +27,14 @@ RSpec.describe Vehicle, type: :request do
       expect(response.status).to eq(401)
       expect(response).to have_http_status(:unauthorized)
     end
+
+    it 'invalid with a malformed token' do
+      get '/api/v1/vehicles/1', headers: {
+        Authorization: 'Bearer not-a-real-token'
+      }
+      expect(response.status).to eq(401)
+      expect(response).to have_http_status(:unauthorized)
+    end
   end
 
   describe 'GET api/v1/vehicles' do
