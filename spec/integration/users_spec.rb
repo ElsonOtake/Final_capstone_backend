@@ -1,6 +1,14 @@
 require 'swagger_helper'
 
 describe 'Users' do
+  before(:each) do
+    @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123', role: 'admin')
+    post '/api/v1/auth/login', params: { name: 'booking_user', password: 'password123' }.to_json
+    @token = JSON.parse(response.body).with_indifferent_access[:token]
+
+    @vehicle = Vehicle.create(model: 'foo', price: 100)
+  end
+
   path '/api/v1/users' do
     get 'List users' do
       tags 'Users'
@@ -8,17 +16,18 @@ describe 'Users' do
       produces 'application/json'
 
       response '200', 'OK' do
-        schema type: :object, properties: {
-                                id: { type: :integer },
-                                name: { type: :string },
-                                email: { type: :string },
-                                role: { type: :string },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[name email]
-
-        let(:id) { User.create(name: 'foo', email: 'foo@bar.com', password: 'foobar').id }
+        schema type: :array, items: {
+          type: :object, properties: {
+                           id: { type: :integer },
+                           name: { type: :string },
+                           email: { type: :string },
+                           role: { type: :string },
+                           created_at: { type: :string },
+                           updated_at: { type: :string }
+                         },
+          required: %w[id name email created_at updated_at]
+        }
+        let(:Authorization) { @token }
         run_test!
       end
     end
@@ -41,11 +50,13 @@ describe 'Users' do
 
       response '200', 'OK' do
         let(:user) { { name: 'Ariel', email: 'ariel@capstone.com', password: 'password' } }
+        let(:Authorization) { @token }
         run_test!
       end
 
       response '422', 'Unprocessable entity' do
         let(:user) { { name: 'Ariel', password: 'password' } }
+        let(:Authorization) { @token }
         run_test!
       end
     end
@@ -71,17 +82,20 @@ describe 'Users' do
                },
                required: %w[name email]
 
-        let(:id) { User.create(name: 'foo', email: 'foo@bar.com', password: 'foobar').id }
+        let(:id) { @user.id }
+        let(:Authorization) { @token }
         run_test!
       end
 
       response '401', 'Unauthorized' do
         let(:id) { 'Unauthorized' }
+        let(:Authorization) { nil }
         run_test!
       end
 
       response '404', 'Not Found' do
-        let(:id) { 'User not found' }
+        let(:id) { 999_999 }
+        let(:Authorization) { @token }
         run_test!
       end
     end
@@ -106,17 +120,23 @@ describe 'Users' do
                              role: { type: :string }, created_at: { type: :string }, updated_at: { type: :string } },
                required: %w[name email]
 
-        let(:id) { User.create(name: 'foo', email: 'foo@bar.com', password: 'foobar').id }
+        let(:id) { @user.id }
+        let(:user) { { name: 'bar', email: 'bar@foo.com', password: 'barfoo' } }
+        let(:Authorization) { @token }
         run_test!
       end
 
       response '401', 'Unauthorized' do
         let(:id) { 'Unauthorized' }
+        let(:user) { { name: 'bar', email: 'bar@foo.com', password: 'barfoo' } }
+        let(:Authorization) { nil }
         run_test!
       end
 
       response '404', 'Not Found' do
-        let(:id) { 'User not found' }
+        let(:id) { 999_999 }
+        let(:user) { { name: 'bar', email: 'bar@foo.com', password: 'barfoo' } }
+        let(:Authorization) { @token }
         run_test!
       end
     end
@@ -142,7 +162,8 @@ describe 'Users' do
                },
                required: %w[name email]
 
-        let(:id) { create(:user).id }
+        let(:id) { @user.id }
+        let(:Authorization) { @token }
         run_test!
       end
     end
