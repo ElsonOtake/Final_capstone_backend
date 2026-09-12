@@ -121,6 +121,13 @@ describe 'Bookings' do
         run_test!
       end
 
+      response '401', 'Unauthorized' do
+        let(:vehicle_id) { @vehicle.id }
+        let(:booking) { { start_date: '2022-12-01', end_date: '2022-12-05', city: 'Rome', user_id: @user.id } }
+        let(:Authorization) { nil }
+        run_test!
+      end
+
       response '422', 'Unprocessable entity' do
         let(:vehicle_id) { @vehicle.id }
         let(:booking) { { city: 'Rome' } }
@@ -237,6 +244,13 @@ describe 'Bookings' do
         let(:user_id) { @user.id }
         let(:booking) { { start_date: '2022-12-10', end_date: '2022-12-15', city: 'Rome', vehicle_id: @vehicle.id } }
         let(:Authorization) { @token }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:user_id) { @user.id }
+        let(:booking) { { start_date: '2022-12-10', end_date: '2022-12-15', city: 'Rome', vehicle_id: @vehicle.id } }
+        let(:Authorization) { nil }
         run_test!
       end
 
