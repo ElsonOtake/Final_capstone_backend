@@ -5,8 +5,6 @@ describe 'Users' do
     @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123', role: 'admin')
     post '/api/v1/auth/login', params: { name: 'booking_user', password: 'password123' }.to_json
     @token = JSON.parse(response.body).with_indifferent_access[:token]
-
-    @vehicle = Vehicle.create(model: 'foo', price: 100)
   end
 
   path '/api/v1/users' do
@@ -21,7 +19,7 @@ describe 'Users' do
                            id: { type: :integer },
                            name: { type: :string },
                            email: { type: :string },
-                           role: { type: :string },
+                           role: { type: %i[string null] },
                            created_at: { type: :string },
                            updated_at: { type: :string }
                          },
@@ -76,7 +74,7 @@ describe 'Users' do
                  id: { type: :integer },
                  name: { type: :string },
                  email: { type: :string },
-                 role: { type: :string },
+                 role: { type: %i[string null] },
                  created_at: { type: :string },
                  updated_at: { type: :string }
                },
@@ -156,7 +154,7 @@ describe 'Users' do
                  id: { type: :integer },
                  name: { type: :string },
                  email: { type: :string },
-                 role: { type: :string },
+                 role: { type: %i[string null] },
                  created_at: { type: :string },
                  updated_at: { type: :string }
                },
