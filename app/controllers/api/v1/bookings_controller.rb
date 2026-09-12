@@ -41,7 +41,7 @@ class Api::V1::BookingsController < ApplicationController
     if booking.save
       render json: booking, status: :ok
     else
-      render json: { error: 'Could not create booking.' }, status: :unprocessable_content
+      render json: { error: booking.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -51,7 +51,7 @@ class Api::V1::BookingsController < ApplicationController
     if booking.save
       render json: booking, status: :ok
     else
-      render json: { error: 'Could not create booking.' }, status: :unprocessable_content
+      render json: { error: booking.errors.full_messages }, status: :unprocessable_content
     end
   end
 

@@ -174,7 +174,7 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("Start date can't be blank")
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -190,7 +190,41 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("End date can't be blank")
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'POST api/v1/vehicles/:vehicle_id/bookings' do
+    it 'invalid when end_date is before start_date' do
+      post "/api/v1/vehicles/#{@vehicle.id}/bookings", params: {
+        start_date: '2022-12-05',
+        end_date: '2022-12-01',
+        city: 'Berlin',
+        user_id: @user.id
+      }.to_json, headers: {
+        Authorization: @token
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to include('End date must be after the start date')
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'POST api/v1/vehicles/:vehicle_id/bookings' do
+    it 'invalid when it overlaps an existing booking for the same vehicle' do
+      post "/api/v1/vehicles/#{@vehicle.id}/bookings", params: {
+        start_date: '2022-10-10',
+        end_date: '2022-10-20',
+        city: 'Berlin',
+        user_id: @user.id
+      }.to_json, headers: {
+        Authorization: @token
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to include('Vehicle is already booked for the selected dates')
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -206,7 +240,7 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("City can't be blank")
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -403,7 +437,7 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("Start date can't be blank")
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -419,7 +453,41 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("End date can't be blank")
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'POST api/v1/users/:user_id/bookings' do
+    it 'invalid when end_date is before start_date' do
+      post "/api/v1/users/#{@user.id}/bookings", params: {
+        start_date: '2022-12-05',
+        end_date: '2022-12-01',
+        city: 'Berlin',
+        vehicle_id: @vehicle.id
+      }.to_json, headers: {
+        Authorization: @token
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to include('End date must be after the start date')
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'POST api/v1/users/:user_id/bookings' do
+    it 'invalid when it overlaps an existing booking for the same vehicle' do
+      post "/api/v1/users/#{@user.id}/bookings", params: {
+        start_date: '2022-10-10',
+        end_date: '2022-10-20',
+        city: 'Berlin',
+        vehicle_id: @vehicle.id
+      }.to_json, headers: {
+        Authorization: @token
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to include('Vehicle is already booked for the selected dates')
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -435,7 +503,7 @@ RSpec.describe Booking, type: :request do
         Authorization: @token
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create booking.')
+      expect(json['error']).to include("City can't be blank")
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
