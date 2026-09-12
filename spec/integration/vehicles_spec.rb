@@ -2,9 +2,14 @@ require 'swagger_helper'
 
 describe 'Vehicles' do
   before(:each) do
-    @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123', role: 'admin')
+    @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123')
     post '/api/v1/auth/login', params: { name: 'booking_user', password: 'password123' }.to_json
     @token = JSON.parse(response.body).with_indifferent_access[:token]
+
+    @admin = User.create(name: 'vehicles_admin', email: 'vehicles_admin@example.com', password: 'password123',
+                         role: 'admin')
+    post '/api/v1/auth/login', params: { name: 'vehicles_admin', password: 'password123' }.to_json
+    @admin_token = JSON.parse(response.body).with_indifferent_access[:token]
 
     @vehicle = Vehicle.create(model: 'foo', price: 100)
   end
@@ -64,7 +69,7 @@ describe 'Vehicles' do
                  acceleration: { type: %i[string null] }, price: { type: :integer },
                  created_at: { type: :string }, updated_at: { type: :string }
                },
-               required: %w[model price]
+               required: %w[id model price created_at updated_at]
 
         let(:id) { @vehicle.id }
         let(:Authorization) { @token }
@@ -103,21 +108,26 @@ describe 'Vehicles' do
           power: { type: %i[string null] },
           max_speed: { type: %i[string null] },
           acceleration: { type: %i[string null] },
-          price: { type: :integer },
-          user_id: { type: :integer }
+          price: { type: :integer }
         },
-        required: %w[model price user_id]
+        required: %w[model price]
       }
 
       response '200', 'OK' do
-        let(:vehicle) { { model: 'Fusca', price: 15, user_id: @user.id } }
+        let(:vehicle) { { model: 'Fusca', price: 15 } }
+        let(:Authorization) { @admin_token }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:vehicle) { { model: 'Fusca', price: 15 } }
         let(:Authorization) { @token }
         run_test!
       end
 
       response '422', 'Unprocessable entity' do
-        let(:vehicle) { { model: 'Fusca', user_id: @user.id } }
-        let(:Authorization) { @token }
+        let(:vehicle) { { model: 'Fusca' } }
+        let(:Authorization) { @admin_token }
         run_test!
       end
     end
@@ -147,9 +157,15 @@ describe 'Vehicles' do
                                 created_at: { type: :string },
                                 updated_at: { type: :string }
                               },
-               required: %w[model price]
+               required: %w[id model price created_at updated_at]
 
-        let(:id) { @vehicle.id }
+        let(:id) { Vehicle.create(model: 'to_delete', price: 50).id }
+        let(:Authorization) { @admin_token }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:id) { Vehicle.create(model: 'to_delete', price: 50).id }
         let(:Authorization) { @token }
         run_test!
       end
