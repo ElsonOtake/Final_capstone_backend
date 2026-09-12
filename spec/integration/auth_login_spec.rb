@@ -18,18 +18,15 @@ describe 'Auth login' do
 
       response '200', 'OK' do
         let(:user) do
-          { token: 'eyJhbGciOiJIUzI1NiJ9', exp: '10-27-2022 15:18', name: 'Elson Otake', role: 'admin', id: 1 }
+          User.create(name: 'Elson Otake', email: 'elson.otake@example.com', password: 'password123')
+          { name: 'Elson Otake', password: 'password123' }
         end
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:user) { { error: 'Unauthorized' } }
-        run_test!
-      end
-
-      response '404', 'Username not found' do
-        let(:user) { { error: 'Not Found' } }
+        description 'Returned for both to avoid revealing which one was wrong'
+        let(:user) { { name: 'nonexistent-user', password: 'wrong-password' } }
         run_test!
       end
     end
