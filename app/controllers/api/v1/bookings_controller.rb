@@ -41,7 +41,7 @@ class Api::V1::BookingsController < ApplicationController
     if booking.save
       render json: booking, status: :ok
     else
-      render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
+      render json: { error: 'Could not create booking.' }, status: :unprocessable_content
     end
   end
 
@@ -51,7 +51,7 @@ class Api::V1::BookingsController < ApplicationController
     if booking.save
       render json: booking, status: :ok
     else
-      render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
+      render json: { error: 'Could not create booking.' }, status: :unprocessable_content
     end
   end
 
@@ -59,14 +59,14 @@ class Api::V1::BookingsController < ApplicationController
     @data = json_payload.slice(*ALLOWED_DATA)
     if @data.empty?
       return render json: { error: 'Empty body. Could not create booking.' },
-                    status: :unprocessable_entity
+                    status: :unprocessable_content
     end
     if @data.include?('vehicle_id')
       create_user_booking
     elsif @data.include?('user_id')
       create_vehicle_booking
     else
-      render json: { error: 'Could not create booking.' }, status: :unprocessable_entity
+      render json: { error: 'Could not create booking.' }, status: :unprocessable_content
     end
   end
 end

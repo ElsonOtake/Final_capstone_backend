@@ -19,13 +19,13 @@ class Api::V1::UsersController < ApplicationController
   # POST /users
   def create
     data = json_payload.slice(*CREATE_ALLOWED_DATA)
-    return render json: { error: 'Empty body. Could not create user.' }, status: :unprocessable_entity if data.empty?
+    return render json: { error: 'Empty body. Could not create user.' }, status: :unprocessable_content if data.empty?
 
     user = User.new(data)
     if user.save
       render json: user, status: :ok
     else
-      render json: { error: 'Could not create user.' }, status: :unprocessable_entity
+      render json: { error: 'Could not create user.' }, status: :unprocessable_content
     end
   end
 
@@ -33,12 +33,12 @@ class Api::V1::UsersController < ApplicationController
   def update
     if current_user.is? :admin
       data = json_payload.slice(*ALLOWED_DATA)
-      return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_entity if data.empty?
+      return render json: { error: 'Empty body. Could not update user.' }, status: :unprocessable_content if data.empty?
 
       if @user.update(data)
         render json: @user, status: :ok
       else
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized

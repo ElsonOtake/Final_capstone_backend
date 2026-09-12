@@ -18,14 +18,14 @@ class Api::V1::VehiclesController < ApplicationController
       data = json_payload.slice(*ALLOWED_DATA)
       if data.empty?
         return render json: { error: 'Empty body. Could not create vehicle.' },
-                      status: :unprocessable_entity
+                      status: :unprocessable_content
       end
 
       vehicle = Vehicle.new(data)
       if vehicle.save
         render json: vehicle, status: :ok
       else
-        render json: { error: 'Could not create vehicle.' }, status: :unprocessable_entity
+        render json: { error: 'Could not create vehicle.' }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized

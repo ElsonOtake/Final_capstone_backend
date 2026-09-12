@@ -146,7 +146,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -160,7 +160,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -176,7 +176,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -192,7 +192,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -208,7 +208,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -224,7 +224,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end
@@ -375,7 +375,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -389,7 +389,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -405,7 +405,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -421,7 +421,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -437,7 +437,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -453,7 +453,7 @@ RSpec.describe Booking, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create booking.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end

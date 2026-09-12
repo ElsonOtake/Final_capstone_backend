@@ -162,7 +162,7 @@ RSpec.describe Vehicle, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create vehicle.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -176,7 +176,7 @@ RSpec.describe Vehicle, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Empty body. Could not create vehicle.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -191,7 +191,7 @@ RSpec.describe Vehicle, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create vehicle.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 
@@ -205,7 +205,7 @@ RSpec.describe Vehicle, type: :request do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['error']).to eq('Could not create vehicle.')
       expect(response.status).to eq(422)
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 

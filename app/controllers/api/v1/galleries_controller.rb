@@ -15,7 +15,7 @@ class Api::V1::GalleriesController < ApplicationController
 
       if data.empty?
         return render json: { error: 'Empty body. Could not create gallery.' },
-                      status: :unprocessable_entity
+                      status: :unprocessable_content
       end
 
       vehicle = Vehicle.find(params[:vehicle_id])
@@ -23,7 +23,7 @@ class Api::V1::GalleriesController < ApplicationController
       if gallery.save
         render json: gallery, status: :ok
       else
-        render json: { error: 'Could not create gallery.' }, status: :unprocessable_entity
+        render json: { error: 'Could not create gallery.' }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized
