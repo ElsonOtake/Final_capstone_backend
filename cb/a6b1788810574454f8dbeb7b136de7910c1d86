@@ -1,0 +1,19 @@
+spec/models/booking_spec.rb
+  h_da978aeed56e72 49-62,69-87
+  h_da978aeed56e72 88-89
+spec/requests/bookings_spec.rb
+  h_da978aeed56e72 177,193-227,243,440,456-490,506
+app/controllers/api/v1/bookings_controller.rb
+  h_da978aeed56e72 44,54
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "cba6b1788810574454f8dbeb7b136de7910c1d86",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}
