@@ -51,6 +51,7 @@ gem 'rubocop'
 
 gem 'rswag'
 
+gem 'json', '~> 2.9'
 gem 'kramdown'
 gem 'ostruct'
 gem 'rake'
