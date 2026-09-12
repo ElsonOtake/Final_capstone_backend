@@ -112,8 +112,8 @@ RSpec.describe Booking, type: :request do
   describe 'POST api/v1/vehicles/:vehicle_id/bookings' do
     before(:each) do
       post "/api/v1/vehicles/#{@vehicle.id}/bookings", params: {
-        start_date: '2022-10-21',
-        end_date: '2022-10-25',
+        start_date: '2022-12-01',
+        end_date: '2022-12-05',
         city: 'Berlin',
         user_id: @user.id
       }.to_json, headers: {
@@ -129,8 +129,8 @@ RSpec.describe Booking, type: :request do
     it 'return json file with booking data' do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['id']).to be_an(Integer)
-      expect(json['start_date']).to eq('2022-10-21')
-      expect(json['end_date']).to eq('2022-10-25')
+      expect(json['start_date']).to eq('2022-12-01')
+      expect(json['end_date']).to eq('2022-12-05')
       expect(json['city']).to eq('Berlin')
       expect(json['vehicle_id']).to eq(@vehicle.id)
       expect(json['user_id']).to eq(@user.id)
@@ -341,8 +341,8 @@ RSpec.describe Booking, type: :request do
   describe 'POST api/v1/users/:user_id/bookings' do
     before(:each) do
       post "/api/v1/users/#{@user.id}/bookings", params: {
-        start_date: '2022-10-21',
-        end_date: '2022-10-25',
+        start_date: '2022-12-01',
+        end_date: '2022-12-05',
         city: 'Berlin',
         vehicle_id: @vehicle.id
       }.to_json, headers: {
@@ -358,8 +358,8 @@ RSpec.describe Booking, type: :request do
     it 'return json file with booking data' do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['id']).to be_an(Integer)
-      expect(json['start_date']).to eq('2022-10-21')
-      expect(json['end_date']).to eq('2022-10-25')
+      expect(json['start_date']).to eq('2022-12-01')
+      expect(json['end_date']).to eq('2022-12-05')
       expect(json['city']).to eq('Berlin')
       expect(json['vehicle_id']).to eq(@vehicle.id)
       expect(json['user_id']).to eq(@user.id)
