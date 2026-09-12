@@ -25,7 +25,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       render json: user, status: :ok
     else
-      render json: { error: 'Could not create user.' }, status: :unprocessable_content
+      render json: { error: user.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class Api::V1::UsersController < ApplicationController
       if @user.update(data)
         render json: @user, status: :ok
       else
-        render json: { errors: @user.errors.full_messages }, status: :unprocessable_content
+        render json: { error: @user.errors.full_messages }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized
