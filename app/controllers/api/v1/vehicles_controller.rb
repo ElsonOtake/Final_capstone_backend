@@ -25,7 +25,7 @@ class Api::V1::VehiclesController < ApplicationController
       if vehicle.save
         render json: vehicle, status: :ok
       else
-        render json: { error: 'Could not create vehicle.' }, status: :unprocessable_content
+        render json: { error: vehicle.errors.full_messages }, status: :unprocessable_content
       end
     else
       render json: { error: 'Unauthorized.' }, status: :unauthorized

@@ -189,7 +189,7 @@ RSpec.describe Vehicle, type: :request do
         Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create vehicle.')
+      expect(json['error']).to include("Model can't be blank")
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
@@ -203,7 +203,22 @@ RSpec.describe Vehicle, type: :request do
         Authorization: @token_admin
       }
       json = JSON.parse(response.body).with_indifferent_access
-      expect(json['error']).to eq('Could not create vehicle.')
+      expect(json['error']).to include("Price can't be blank")
+      expect(response.status).to eq(422)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'POST api/v1/vehicles' do
+    it 'invalid price parameter for admin users' do
+      post '/api/v1/vehicles', params: {
+        model: 'new_vehicle_model',
+        price: 'U$750'
+      }.to_json, headers: {
+        Authorization: @token_admin
+      }
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json['error']).to include('Price is not a number')
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
     end
