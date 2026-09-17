@@ -12,7 +12,7 @@ module FinalCapstoneBackend
     config.load_defaults 8.0
 
     # Fix deprecation warning for to_time behavior
-    config.active_support.to_time_preserves_timezone = :zone
+    # config.active_support.to_time_preserves_timezone = :zone
 
     # Configuration for the application, engines, and railties goes here.
     #
