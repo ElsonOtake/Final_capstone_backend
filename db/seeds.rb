@@ -27,24 +27,19 @@ if User.count.zero?
   Booking.create(start_date: '2022-10-31', end_date: '2022-11-02', city: 'Cancún', user_id: 3, vehicle_id: 2)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'San Andrés', user_id: 2, vehicle_id: 4)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'Punta Gallinas', user_id: 4, vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1981-DeLorean-DMC-12-001-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-005-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-006-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-007-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-008-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/BMW/2023-BMW-M2-004-1080.jpg', vehicle_id: 3)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/BMW/2023-BMW-M2-005-1080.jpg', vehicle_id: 3)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Mitsubishi/2022-Mitsubishi-XFC-Concept-001-1080.jpg',
-                 vehicle_id: 4)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Mitsubishi/2022-Mitsubishi-XFC-Concept-002-1080.jpg',
-                 vehicle_id: 4)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Alpine/2023-Alpine-A110-R-001-1080.jpg',
-                 vehicle_id: 5)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Alpine/2023-Alpine-A110-R-002-1080.jpg',
-                 vehicle_id: 5)
+  Gallery.create(photo: '/images/delorean_dmc12_1.jpg', vehicle_id: 1)
+ 
+  Gallery.create(photo: '/images/ferrari_f175_1.jpg', vehicle_id: 2)
+  Gallery.create(photo: '/images/ferrari_f175_2.jpg', vehicle_id: 2)
+  Gallery.create(photo: '/images/ferrari_f175_3.jpg', vehicle_id: 2)
+  Gallery.create(photo: '/images/ferrari_f175_4.jpg', vehicle_id: 2)
+ 
+  Gallery.create(photo: '/images/bmw_m2_1.jpg', vehicle_id: 3)
+  Gallery.create(photo: '/images/bmw_m2_2.jpg', vehicle_id: 3)
+ 
+  Gallery.create(photo: '/images/mitsubishi_xfc_1.jpg', vehicle_id: 4)
+  Gallery.create(photo: '/images/mitsubishi_xfc_2.jpg', vehicle_id: 4)
+ 
+  Gallery.create(photo: '/images/alpine_a110r_1.jpg', vehicle_id: 5)
+  Gallery.create(photo: '/images/alpine_a110r_2.jpg', vehicle_id: 5)
 end
