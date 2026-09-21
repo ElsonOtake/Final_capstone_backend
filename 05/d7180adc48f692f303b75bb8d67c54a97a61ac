@@ -1,0 +1,14 @@
+db/migrate/20260921180132_create_active_storage_tables.active_storage.rb
+  h_da978aeed56e72 1-57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "05d7180adc48f692f303b75bb8d67c54a97a61ac",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}
