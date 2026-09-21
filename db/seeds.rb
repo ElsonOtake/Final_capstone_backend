@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+#
+# NOTE: Gallery photo URLs below point to /images/... which are served from
+# your Rails app's public/ folder (e.g. public/images/delorean_dmc12_1.jpg).
+# Download each vehicle's images and place them there using these exact
+# filenames, or update the paths to match whatever filenames you use.
 if User.count.zero?
   User.create(name: 'Elson', email: 'elson@capstone.com', password: 'exopasswords')
   User.create(name: 'Giuseppe', email: 'giuseppe@capstone.com', password: 'exopasswords', role: 'admin')
@@ -27,24 +32,22 @@ if User.count.zero?
   Booking.create(start_date: '2022-10-31', end_date: '2022-11-02', city: 'Cancún', user_id: 3, vehicle_id: 2)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'San Andrés', user_id: 2, vehicle_id: 4)
   Booking.create(start_date: '2022-10-26', end_date: '2022-10-28', city: 'Punta Gallinas', user_id: 4, vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/DeLorean/1981-DeLorean-DMC-12-001-1080.jpg',
-                 vehicle_id: 1)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-005-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-006-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-007-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Formula-1/Scuderia-Ferrari/2022-Formula1-Ferrari-F1-75-008-1080.jpg',
-                 vehicle_id: 2)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/BMW/2023-BMW-M2-004-1080.jpg', vehicle_id: 3)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/BMW/2023-BMW-M2-005-1080.jpg', vehicle_id: 3)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Mitsubishi/2022-Mitsubishi-XFC-Concept-001-1080.jpg',
-                 vehicle_id: 4)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Mitsubishi/2022-Mitsubishi-XFC-Concept-002-1080.jpg',
-                 vehicle_id: 4)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Alpine/2023-Alpine-A110-R-001-1080.jpg',
-                 vehicle_id: 5)
-  Gallery.create(photo: 'https://www.wsupercars.com/wallpapers-regular/Alpine/2023-Alpine-A110-R-002-1080.jpg',
-                 vehicle_id: 5)
+
+  cars = [['1981-DeLorean-DMC-12-001-1080', 1], ['2022-Formula1-Ferrari-F1-75-005-1080', 2],
+          ['2022-Formula1-Ferrari-F1-75-006-1080', 2], ['2022-Formula1-Ferrari-F1-75-007-1080', 2],
+          ['2022-Formula1-Ferrari-F1-75-008-1080', 2], ['2023-BMW-M2-004-1080', 3],
+          ['2023-BMW-M2-005-1080', 3], ['2022-Mitsubishi-XFC-Concept-001-1080', 4],
+          ['2022-Mitsubishi-XFC-Concept-002-1080', 4], ['2023-Alpine-A110-R-001-1080', 5],
+          ['2023-Alpine-A110-R-002-1080', 5]]
+
+  cars.each do |car, vehicle_id|
+    vehicle = Vehicle.find(vehicle_id)
+    gallery = vehicle.galleries.build
+    gallery.photo_file.attach(
+      io: File.open(Rails.root.join("public/images/#{car}.jpg")),
+      filename: "#{car}.jpg",
+      content_type: 'image/jpeg'
+    )
+    gallery.save!
+  end
 end
