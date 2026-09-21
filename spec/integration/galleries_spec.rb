@@ -12,7 +12,13 @@ describe 'Galleries' do
     @admin_token = JSON.parse(response.body).with_indifferent_access[:token]
 
     @vehicle = Vehicle.create(model: 'foo', price: 100)
-    @vehicle.galleries.create(photo: 'existing.png')
+    gallery = @vehicle.galleries.build
+    gallery.photo_file.attach(
+      io: File.open(Rails.root.join('spec/fixtures/files/car.jpg')),
+      filename: 'car.jpg',
+      content_type: 'image/jpeg'
+    )
+    gallery.save!
   end
 
   path '/api/v1/vehicles/{vehicle_id}/galleries' do
@@ -28,9 +34,9 @@ describe 'Galleries' do
           type: :object, properties: {
                            id: { type: :integer },
                            photo: { type: :string },
-                           vehicle: { type: :object }
+                           vehicle_id: { type: :integer }
                          },
-          required: %w[photo vehicle]
+          required: %w[id photo vehicle_id]
         }
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @token }
@@ -55,34 +61,54 @@ describe 'Galleries' do
     post 'Creates a gallery' do
       security [{ ApiKeyAuth: [] }]
       tags 'Galleries'
-      consumes 'application/json'
+      consumes 'multipart/form-data'
       produces 'application/json'
       parameter name: :vehicle_id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
-      parameter name: :gallery, in: :body, required: true, description: 'Gallery data', schema: {
-        type: :object, properties: {
-                         photo: { type: :string }
-                       },
-        required: %w[photo]
-      }
+      parameter name: :gallery, in: :body, required: true,
+                schema: {
+                  type: :object,
+                  properties: {
+                    photo_file: {
+                      type: :string, format: :binary, description: 'Gallery photo'
+                    }
+                  },
+                  required: ['photo_file']
+                }
 
-      response '200', 'OK' do
+      response '201', 'Created' do
         let(:vehicle_id) { @vehicle.id }
-        let(:gallery) { { photo: 'foo.jpg' } }
         let(:Authorization) { @admin_token }
-        run_test!
+        let(:gallery) do
+          Rack::Test::UploadedFile.new(
+            Rails.root.join('spec/fixtures/files/car.jpg'),
+            'image/jpeg'
+          )
+        end
+        run_test! do |response|
+          expect(response.status).to eq(201)
+
+          created_gallery = Gallery.last
+          expect(created_gallery.photo_file).to be_attached
+          expect(created_gallery.vehicle_id).to eq(@vehicle.id)
+        end
       end
 
       response '401', 'Unauthorized' do
         let(:vehicle_id) { @vehicle.id }
-        let(:gallery) { { photo: 'foo.jpg' } }
         let(:Authorization) { @token }
+        let(:gallery) do
+          Rack::Test::UploadedFile.new(
+            Rails.root.join('spec/fixtures/files/car.jpg'),
+            'image/jpeg'
+          )
+        end
         run_test!
       end
 
       response '422', 'Unprocessable entity' do
         let(:vehicle_id) { @vehicle.id }
-        let(:gallery) { {} }
         let(:Authorization) { @admin_token }
+        let(:gallery) { nil }
         run_test!
       end
     end
