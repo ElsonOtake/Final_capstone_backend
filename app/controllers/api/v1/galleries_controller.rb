@@ -16,7 +16,7 @@ class Api::V1::GalleriesController < ApplicationController
     if gallery.save
       render json: gallery_json(gallery), status: :created
     else
-      render json: { errors: gallery.errors.full_messages }, status: :unprocessable_entity
+      render json: { errors: gallery.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -40,7 +40,7 @@ class Api::V1::GalleriesController < ApplicationController
     {
       id: gallery.id,
       vehicle_id: gallery.vehicle_id,
-      photo: gallery.photo_file.attached? ? url_for(gallery.photo_file) : gallery.photo
+      photo: gallery.photo_file.attached? ? url_for(gallery.photo_file) : nil
     }
   end
 end
