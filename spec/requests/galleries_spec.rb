@@ -94,14 +94,22 @@ RSpec.describe Gallery, type: :request do
 
     it 'valid with authorization for admin user' do
       expect(response.status).to eq(201)
-      expect(response).to have_http_status(:success)
+      expect(response).to have_http_status(:created)
     end
 
     it 'return json file with gallery data' do
       json = JSON.parse(response.body).with_indifferent_access
       expect(json['id']).to be_an(Integer)
+      expect(json['photo']).to be_present
       expect(json['photo']).to include('car.jpg')
       expect(json.keys).to match_array(%w[id photo vehicle_id])
+    end
+
+    it 'attaches the uploaded photo' do
+      gallery = Gallery.last
+
+      expect(gallery.photo_file).to be_attached
+      expect(gallery.photo_file.filename.to_s).to eq('car.jpg')
     end
   end
 
