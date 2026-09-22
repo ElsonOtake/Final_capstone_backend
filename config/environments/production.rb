@@ -57,6 +57,21 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  config.action_controller.default_url_options = {
+    host: 'elsonotake-exo-cars.onrender.com',
+    protocol: 'https'
+  }
+
+  Rails.application.routes.default_url_options = {
+    host: 'elsonotake-exo-cars.onrender.com',
+    protocol: 'https'
+  }
+
+  config.active_storage.url_options = {
+    host: 'elsonotake-exo-cars.onrender.com',
+    protocol: 'https'
+  }
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

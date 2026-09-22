@@ -19,7 +19,7 @@ class Api::V1::GalleriesController < ApplicationController
       render json: { errors: gallery.errors.full_messages }, status: :unprocessable_entity
     end
   end
-  
+
   private
 
   def set_vehicle
