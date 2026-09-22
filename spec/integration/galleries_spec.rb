@@ -64,21 +64,12 @@ describe 'Galleries' do
       consumes 'multipart/form-data'
       produces 'application/json'
       parameter name: :vehicle_id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
-      parameter name: :gallery, in: :body, required: true,
-                schema: {
-                  type: :object,
-                  properties: {
-                    photo_file: {
-                      type: :string, format: :binary, description: 'Gallery photo'
-                    }
-                  },
-                  required: ['photo_file']
-                }
+      parameter name: :photo_file, in: :formData, type: :file, required: true, description: 'Gallery photo'
 
       response '201', 'Created' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @admin_token }
-        let(:gallery) do
+        let(:photo_file) do
           Rack::Test::UploadedFile.new(
             Rails.root.join('spec/fixtures/files/car.jpg'),
             'image/jpeg'
@@ -96,7 +87,7 @@ describe 'Galleries' do
       response '401', 'Unauthorized' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @token }
-        let(:gallery) do
+        let(:photo_file) do
           Rack::Test::UploadedFile.new(
             Rails.root.join('spec/fixtures/files/car.jpg'),
             'image/jpeg'
@@ -108,7 +99,7 @@ describe 'Galleries' do
       response '422', 'Unprocessable entity' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @admin_token }
-        let(:gallery) { nil }
+        let(:photo_file) { nil }
         run_test!
       end
     end
