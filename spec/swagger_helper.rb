@@ -21,9 +21,9 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
-      servers: [{ url: 'http://localhost:3000', description: 'Development' },
-                { url: "https://#{ENV.fetch('APP_HOST', 'elsonotake-exo-cars.onrender.com')}",
-                  description: 'Production' }],
+      servers: [{ url: "https://#{ENV.fetch('APP_HOST', 'elsonotake-exo-cars.onrender.com')}",
+                  description: 'Production' },
+                { url: 'http://localhost:3000', description: 'Development' }],
       components: {
         securitySchemes: {
           ApiKeyAuth: {
