@@ -879,10 +879,10 @@ paths:
         '401':
           description: Unauthorized
 servers:
-- url: http://localhost:3000
-  description: Development
 - url: https://elsonotake-exo-cars.onrender.com
   description: Production
+- url: http://localhost:3000
+  description: Development
 components:
   securitySchemes:
     ApiKeyAuth:
