@@ -18,12 +18,12 @@ if User.count.zero?
   Vehicle.create(model: 'DMC-12', year: '1985', brand: 'DeLorean', color: 'Silver', country: 'USA',
                  power: '130 HP', max_speed: '175 km/h', acceleration: '9.5 s', price: 500,
                  description: "The DMC DeLorean is a rear-engine two-passenger sports car manufactured and marketed by John DeLorean's DeLorean Motor Company (DMC) for the American market from 1981 until 1983")
-  Vehicle.create(model: 'F1-75', brand: 'Ferrari', year: '2022', price: 1250,
+  Vehicle.create(model: 'F1-75', brand: 'Ferrari', year: '2022', price: 1250, power: '1000 HP', max_speed: '354 km/h', acceleration: '2.5 s',
                  description: 'The Ferrari F1-75 is a Formula One racing car designed and constructed by Scuderia Ferrari and is competing in the 2022 Formula One World Championship.')
   Vehicle.create(model: 'M2', brand: 'BMW', year: '2023', power: '365 HP', acceleration: '4.3 s',
                  max_speed: '270 km/h', price: 750,
                  description: "The BMW M2 is a high-performance version of the BMW 2 Series automobile developed by BMW's motorsport division, BMW M GmbH.")
-  Vehicle.create(model: 'XFC Concept', brand: 'Mitsubishi', year: '2023', price: 450,
+  Vehicle.create(model: 'XFC Concept', brand: 'Mitsubishi', year: '2023', price: 450, power: '103 HP', max_speed: '175 km/h', acceleration: '11.5 s',
                  description: 'Mitsubishi says that the XFC Concept aims to be the "best-suited buddy for an exciting life", whatever that means.')
   Vehicle.create(model: 'A110 R', brand: 'Alpine', year: '2023', power: '300 HP', acceleration: '3.9 s',
                  max_speed: '285 km/h', price: 840,
