@@ -1,32 +1,51 @@
 class Api::V1::GalleriesController < ApplicationController
   before_action :authorize_request
-
-  ALLOWED_DATA = %w[photo].freeze
+  before_action :authorize_admin, only: :create
+  before_action :set_vehicle
 
   def index
-    vehicle = Vehicle.find_by_id!(params[:vehicle_id])
-    galleries = vehicle.galleries
+    galleries = @vehicle.galleries.map { |gallery| gallery_json(gallery) }
     render json: galleries, status: :ok
   end
 
   def create
-    if current_user.is? :admin
-      data = json_payload.slice(*ALLOWED_DATA)
-
-      if data.empty?
-        return render json: { error: 'Empty body. Could not create gallery.' },
-                      status: :unprocessable_content
-      end
-
-      vehicle = Vehicle.find(params[:vehicle_id])
-      gallery = vehicle.galleries.new(data)
-      if gallery.save
-        render json: gallery, status: :ok
-      else
-        render json: { error: 'Could not create gallery.' }, status: :unprocessable_content
-      end
-    else
-      render json: { error: 'Unauthorized.' }, status: :unauthorized
+    if photo_params[:photo_file].blank?
+      render json: { errors: ['photo_file is required'] }, status: :unprocessable_content
+      return
     end
+
+    gallery = @vehicle.galleries.new
+
+    gallery.photo_file.attach(photo_params[:photo_file])
+
+    if gallery.save
+      render json: gallery_json(gallery), status: :created
+    else
+      render json: { errors: gallery.errors.full_messages }, status: :unprocessable_content
+    end
+  end
+
+  private
+
+  def set_vehicle
+    @vehicle = Vehicle.find(params[:vehicle_id])
+  end
+
+  def authorize_admin
+    return if current_user.is? :admin
+
+    render json: { error: 'Unauthorized.' }, status: :unauthorized
+  end
+
+  def photo_params
+    params.permit(:photo_file)
+  end
+
+  def gallery_json(gallery)
+    {
+      id: gallery.id,
+      vehicle_id: gallery.vehicle_id,
+      photo: gallery.photo_file.attached? ? url_for(gallery.photo_file) : nil
+    }
   end
 end

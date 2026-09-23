@@ -31,7 +31,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :local
+  config.active_storage.service = :cloudflare
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -56,6 +56,21 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "Final_capstone_backend_production"
 
   config.action_mailer.perform_caching = false
+
+  config.action_controller.default_url_options = {
+    host: ENV.fetch('APP_HOST'),
+    protocol: 'https'
+  }
+
+  Rails.application.routes.default_url_options = {
+    host: ENV.fetch('APP_HOST'),
+    protocol: 'https'
+  }
+
+  config.active_storage.url_options = {
+    host: ENV.fetch('APP_HOST'),
+    protocol: 'https'
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.

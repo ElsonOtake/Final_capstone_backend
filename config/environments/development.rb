@@ -17,6 +17,11 @@ Rails.application.configure do
   # Enable server timing
   config.server_timing = true
 
+  config.after_initialize do
+    Rails.application.routes.default_url_options[:host] = 'localhost'
+    Rails.application.routes.default_url_options[:port] = 3000
+  end
+
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
   if Rails.root.join("tmp/caching-dev.txt").exist?
@@ -29,6 +34,16 @@ Rails.application.configure do
 
     config.cache_store = :null_store
   end
+
+  config.action_controller.default_url_options = {
+    host: 'localhost',
+    port: 3000
+  }
+
+  config.active_storage.url_options = {
+    host: 'localhost',
+    port: 3000
+  }
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local

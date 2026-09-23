@@ -51,6 +51,7 @@ gem 'rubocop'
 
 gem 'rswag'
 
+gem 'aws-sdk-s3', require: false
 gem 'json', '< 3.0'
 gem 'kramdown'
 gem 'ostruct'

@@ -21,8 +21,9 @@ RSpec.configure do |config|
         version: 'v1'
       },
       paths: {},
-      servers: [{ url: 'https://elsonotake-exo-cars.onrender.com/',
-                  variables: { defaultHost: { default: 'elsonotake-exo-cars.onrender.com/' } } }],
+      servers: [{ url: 'http://localhost:3000', description: 'Development' },
+                { url: "https://#{ENV.fetch('APP_HOST', 'elsonotake-exo-cars.onrender.com')}",
+                  description: 'Production' }],
       components: {
         securitySchemes: {
           ApiKeyAuth: {
