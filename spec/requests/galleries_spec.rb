@@ -72,11 +72,12 @@ RSpec.describe Gallery, type: :request do
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
     it 'invalid without authorization' do
+      file = Rack::Test::UploadedFile.new(
+        Rails.root.join('spec/fixtures/files/car.jpg'), 'image/jpeg'
+      )
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
-        name: 'new_galleryname',
-        password: 'new_password',
-        email: 'new_galleryname@email.com'
-      }.to_json
+        photo_file: file
+      }
       expect(response.status).to eq(401)
       expect(response).to have_http_status(:unauthorized)
     end
@@ -127,30 +128,30 @@ RSpec.describe Gallery, type: :request do
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid without body parameters for admin users' do
-      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {}.to_json, headers: {
+    it 'when photo_file is missing from the request' do
+      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {}, headers: {
         Authorization: @token_admin
       }
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
+      expect(JSON.parse(response.body)['errors']).to include('photo_file is required')
     end
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
-    it 'invalid with invalid body parameters for admin users' do
+    it 'when photo_file is blank (explicitly sent empty)' do
       post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: {
-        account: 'banana'
-      }.to_json, headers: {
-        Authorization: @token_admin
-      }
+        photo_file: ''
+      }, headers: { Authorization: @token_admin }
       expect(response.status).to eq(422)
       expect(response).to have_http_status(:unprocessable_content)
+      expect(JSON.parse(response.body)['errors']).to include('photo_file is required')
     end
   end
 
   describe 'POST api/v1/vehicles/:vehicle_id/galleries' do
     it 'invalid without photo parameter for admin users' do
-      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: { vehicle_id: @vehicle.id }.to_json, headers: {
+      post "/api/v1/vehicles/#{@vehicle.id}/galleries", params: { vehicle_id: @vehicle.id }, headers: {
         Authorization: @token_admin
       }
       expect(response.status).to eq(422)

@@ -9,6 +9,11 @@ class Api::V1::GalleriesController < ApplicationController
   end
 
   def create
+    if photo_params[:photo_file].blank?
+      render json: { errors: ['photo_file is required'] }, status: :unprocessable_content
+      return
+    end
+
     gallery = @vehicle.galleries.new
 
     gallery.photo_file.attach(photo_params[:photo_file])
