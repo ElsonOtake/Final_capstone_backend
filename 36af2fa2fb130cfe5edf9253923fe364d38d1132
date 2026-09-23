@@ -1,0 +1,14 @@
+db/seeds.rb
+  h_da978aeed56e72 30
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "36af2fa2fb130cfe5edf9253923fe364d38d1132",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

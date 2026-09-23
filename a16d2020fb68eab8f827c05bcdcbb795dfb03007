@@ -1,0 +1,14 @@
+app/models/json_web_token.rb
+  h_da978aeed56e72 10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a16d2020fb68eab8f827c05bcdcbb795dfb03007",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}
