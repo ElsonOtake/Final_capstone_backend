@@ -58,17 +58,17 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_controller.default_url_options = {
-    host: 'elsonotake-exo-cars.onrender.com',
+    host: ENV.fetch('APP_HOST'),
     protocol: 'https'
   }
 
   Rails.application.routes.default_url_options = {
-    host: 'elsonotake-exo-cars.onrender.com',
+    host: ENV.fetch('APP_HOST'),
     protocol: 'https'
   }
 
   config.active_storage.url_options = {
-    host: 'elsonotake-exo-cars.onrender.com',
+    host: ENV.fetch('APP_HOST'),
     protocol: 'https'
   }
 
