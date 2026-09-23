@@ -10,15 +10,13 @@ paths:
       summary: Login user
       tags:
       - Login
-      description: Login user with valid authorization
+      description: Returned for both to avoid revealing which one was wrong
       parameters: []
       responses:
         '200':
           description: OK
         '401':
           description: Unauthorized
-        '404':
-          description: Username not found
       requestBody:
         content:
           application/json:
@@ -54,30 +52,32 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  start_date:
-                    type: string
-                  end_date:
-                    type: string
-                  city:
-                    type: string
-                  vehicle_id:
-                    type: integer
-                  user_id:
-                    type: integer
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                required:
-                - start_date
-                - end_date
-                - city
-                - vehicle_id
-                - user_id
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    start_date:
+                      type: string
+                    end_date:
+                      type: string
+                    city:
+                      type: string
+                    vehicle_id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                  required:
+                  - start_date
+                  - end_date
+                  - city
+                  - vehicle_id
+                  - user_id
         '401':
           description: Unauthorized
         '404':
@@ -98,6 +98,8 @@ paths:
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
         '422':
           description: Unprocessable entity
       requestBody:
@@ -195,30 +197,32 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  start_date:
-                    type: string
-                  end_date:
-                    type: string
-                  city:
-                    type: string
-                  vehicle_id:
-                    type: integer
-                  user_id:
-                    type: integer
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                required:
-                - start_date
-                - end_date
-                - city
-                - vehicle_id
-                - user_id
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    start_date:
+                      type: string
+                    end_date:
+                      type: string
+                    city:
+                      type: string
+                    vehicle_id:
+                      type: integer
+                    user_id:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                  required:
+                  - start_date
+                  - end_date
+                  - city
+                  - vehicle_id
+                  - user_id
         '401':
           description: Unauthorized
         '404':
@@ -239,6 +243,8 @@ paths:
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
         '422':
           description: Unprocessable entity
       requestBody:
@@ -336,21 +342,20 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  photo:
-                    type: string
-                  vehicle_id:
-                    type: integer
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                required:
-                - photo
-                - vehicle_id
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    photo:
+                      type: string
+                    vehicle_id:
+                      type: integer
+                  required:
+                  - id
+                  - photo
+                  - vehicle_id
         '401':
           description: Unauthorized
         '404':
@@ -369,22 +374,19 @@ paths:
         schema:
           type: integer
       responses:
-        '200':
-          description: OK
+        '201':
+          description: Created
+        '401':
+          description: Unauthorized
         '422':
           description: Unprocessable entity
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              type: object
-              properties:
-                photo:
-                  type: string
-              required:
-              - photo
+              type: file
         required: true
-        description: Gallery data
+        description: Gallery photo
   "/api/v1/users":
     get:
       summary: List users
@@ -397,23 +399,30 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  email:
-                    type: string
-                  role:
-                    type: string
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                required:
-                - name
-                - email
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    role:
+                      type:
+                      - string
+                      - 'null'
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - email
+                  - created_at
+                  - updated_at
     post:
       summary: Create a user
       tags:
@@ -471,14 +480,19 @@ paths:
                   email:
                     type: string
                   role:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   created_at:
                     type: string
                   updated_at:
                     type: string
                 required:
+                - id
                 - name
                 - email
+                - created_at
+                - updated_at
         '401':
           description: Unauthorized
         '404':
@@ -512,14 +526,19 @@ paths:
                   email:
                     type: string
                   role:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   created_at:
                     type: string
                   updated_at:
                     type: string
                 required:
+                - id
                 - name
                 - email
+                - created_at
+                - updated_at
         '401':
           description: Unauthorized
         '404':
@@ -537,7 +556,9 @@ paths:
                 password:
                   type: string
                 role:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
               required:
               - name
               - email
@@ -572,7 +593,9 @@ paths:
                   email:
                     type: string
                   role:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   created_at:
                     type: string
                   updated_at:
@@ -594,37 +617,58 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  model:
-                    type: string
-                  description:
-                    type: string
-                  year:
-                    type: string
-                  brand:
-                    type: string
-                  color:
-                    type: string
-                  country:
-                    type: string
-                  power:
-                    type: string
-                  max_speed:
-                    type: string
-                  acceleration:
-                    type: string
-                  price:
-                    type: integer
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                required:
-                - model
-                - price
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    model:
+                      type: string
+                    description:
+                      type:
+                      - string
+                      - 'null'
+                    year:
+                      type:
+                      - string
+                      - 'null'
+                    brand:
+                      type:
+                      - string
+                      - 'null'
+                    color:
+                      type:
+                      - string
+                      - 'null'
+                    country:
+                      type:
+                      - string
+                      - 'null'
+                    power:
+                      type:
+                      - string
+                      - 'null'
+                    max_speed:
+                      type:
+                      - string
+                      - 'null'
+                    acceleration:
+                      type:
+                      - string
+                      - 'null'
+                    price:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                  required:
+                  - id
+                  - model
+                  - price
+                  - created_at
+                  - updated_at
         '401':
           description: Unauthorized
     post:
@@ -637,6 +681,8 @@ paths:
       responses:
         '200':
           description: OK
+        '401':
+          description: Unauthorized
         '422':
           description: Unprocessable entity
       requestBody:
@@ -648,21 +694,37 @@ paths:
                 model:
                   type: string
                 description:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 year:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 brand:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 color:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 country:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 power:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 max_speed:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 acceleration:
-                  type: string
+                  type:
+                  - string
+                  - 'null'
                 price:
                   type: integer
               required:
@@ -697,21 +759,37 @@ paths:
                   model:
                     type: string
                   description:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   year:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   brand:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   color:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   country:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   power:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   max_speed:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   acceleration:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   price:
                     type: integer
                   created_at:
@@ -719,8 +797,11 @@ paths:
                   updated_at:
                     type: string
                 required:
+                - id
                 - model
                 - price
+                - created_at
+                - updated_at
         '401':
           description: Unauthorized
         '404':
@@ -752,21 +833,37 @@ paths:
                   model:
                     type: string
                   description:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   year:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   brand:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   color:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   country:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   power:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   max_speed:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   acceleration:
-                    type: string
+                    type:
+                    - string
+                    - 'null'
                   price:
                     type: integer
                   created_at:
@@ -774,13 +871,18 @@ paths:
                   updated_at:
                     type: string
                 required:
+                - id
                 - model
                 - price
+                - created_at
+                - updated_at
+        '401':
+          description: Unauthorized
 servers:
-- url: https://elsonotake-exo-cars.onrender.com/
-  variables:
-    defaultHost:
-      default: elsonotake-exo-cars.onrender.com/
+- url: http://localhost:3000
+  description: Development
+- url: https://elsonotake-exo-cars.onrender.com
+  description: Production
 components:
   securitySchemes:
     ApiKeyAuth:
