@@ -384,8 +384,13 @@ paths:
         content:
           multipart/form-data:
             schema:
-              type: file
-        required: true
+              type: object
+              properties:
+                photo_file:
+                  type: string
+                  format: binary
+              required:
+              - photo_file
         description: Gallery photo
   "/api/v1/users":
     get:
@@ -410,9 +415,8 @@ paths:
                     email:
                       type: string
                     role:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     created_at:
                       type: string
                     updated_at:
@@ -480,9 +484,8 @@ paths:
                   email:
                     type: string
                   role:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   created_at:
                     type: string
                   updated_at:
@@ -526,9 +529,8 @@ paths:
                   email:
                     type: string
                   role:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   created_at:
                     type: string
                   updated_at:
@@ -556,9 +558,8 @@ paths:
                 password:
                   type: string
                 role:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
               required:
               - name
               - email
@@ -593,9 +594,8 @@ paths:
                   email:
                     type: string
                   role:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   created_at:
                     type: string
                   updated_at:
@@ -626,37 +626,29 @@ paths:
                     model:
                       type: string
                     description:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     year:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     brand:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     color:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     country:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     power:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     max_speed:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     acceleration:
-                      type:
-                      - string
-                      - 'null'
+                      type: string
+                      nullable: true
                     price:
                       type: integer
                     created_at:
@@ -694,37 +686,29 @@ paths:
                 model:
                   type: string
                 description:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 year:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 brand:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 color:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 country:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 power:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 max_speed:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 acceleration:
-                  type:
-                  - string
-                  - 'null'
+                  type: string
+                  nullable: true
                 price:
                   type: integer
               required:
@@ -759,37 +743,29 @@ paths:
                   model:
                     type: string
                   description:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   year:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   brand:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   color:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   country:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   power:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   max_speed:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   acceleration:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   price:
                     type: integer
                   created_at:
@@ -833,37 +809,29 @@ paths:
                   model:
                     type: string
                   description:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   year:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   brand:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   color:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   country:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   power:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   max_speed:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   acceleration:
-                    type:
-                    - string
-                    - 'null'
+                    type: string
+                    nullable: true
                   price:
                     type: integer
                   created_at:

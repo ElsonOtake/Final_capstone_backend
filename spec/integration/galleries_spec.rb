@@ -64,16 +64,20 @@ describe 'Galleries' do
       consumes 'multipart/form-data'
       produces 'application/json'
       parameter name: :vehicle_id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
-      parameter name: :photo_file, in: :formData, type: :file, required: true, description: 'Gallery photo'
+      parameter name: :gallery, in: :formData, description: 'Gallery photo',
+                schema: { type: :object, properties: { photo_file: { type: :string, format: :binary } },
+                          required: ['photo_file'] }
 
       response '201', 'Created' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @admin_token }
-        let(:photo_file) do
-          Rack::Test::UploadedFile.new(
-            Rails.root.join('spec/fixtures/files/car.jpg'),
-            'image/jpeg'
-          )
+        let(:gallery) do
+          {
+            photo_file: Rack::Test::UploadedFile.new(
+              Rails.root.join('spec/fixtures/files/car.jpg'),
+              'image/jpeg'
+            )
+          }
         end
         run_test! do |response|
           expect(response.status).to eq(201)
@@ -87,11 +91,13 @@ describe 'Galleries' do
       response '401', 'Unauthorized' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @token }
-        let(:photo_file) do
-          Rack::Test::UploadedFile.new(
-            Rails.root.join('spec/fixtures/files/car.jpg'),
-            'image/jpeg'
-          )
+        let(:gallery) do
+          {
+            photo_file: Rack::Test::UploadedFile.new(
+              Rails.root.join('spec/fixtures/files/car.jpg'),
+              'image/jpeg'
+            )
+          }
         end
         run_test!
       end
@@ -99,7 +105,7 @@ describe 'Galleries' do
       response '422', 'Unprocessable entity' do
         let(:vehicle_id) { @vehicle.id }
         let(:Authorization) { @admin_token }
-        let(:photo_file) { nil }
+        let(:gallery) { { photo_file: nil } }
         run_test!
       end
     end
