@@ -24,7 +24,7 @@ describe 'Users' do
                            id: { type: :integer },
                            name: { type: :string },
                            email: { type: :string },
-                           role: { type: %i[string null] },
+                           role: { type: :string, nullable: true },
                            created_at: { type: :string },
                            updated_at: { type: :string }
                          },
@@ -77,7 +77,7 @@ describe 'Users' do
                  id: { type: :integer },
                  name: { type: :string },
                  email: { type: :string },
-                 role: { type: %i[string null] },
+                 role: { type: :string, nullable: true },
                  created_at: { type: :string },
                  updated_at: { type: :string }
                },
@@ -112,13 +112,13 @@ describe 'Users' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'User identification'
       parameter name: :user, in: :body, description: 'Updates a user', schema: {
         type: :object, properties: { name: { type: :string }, email: { type: :string }, password: { type: :string },
-                                     role: { type: %i[string null] } },
+                                     role: { type: :string, nullable: true } },
         required: %w[name email password]
       }
       response '200', 'OK' do
         schema type: :object,
                properties: { id: { type: :integer }, name: { type: :string }, email: { type: :string },
-                             role: { type: %i[string null] }, created_at: { type: :string }, updated_at: { type: :string } },
+                             role: { type: :string, nullable: true }, created_at: { type: :string }, updated_at: { type: :string } },
                required: %w[id name email created_at updated_at]
 
         let(:id) { @user.id }
@@ -157,7 +157,7 @@ describe 'Users' do
                  id: { type: :integer },
                  name: { type: :string },
                  email: { type: :string },
-                 role: { type: %i[string null] },
+                 role: { type: :string, nullable: true },
                  created_at: { type: :string },
                  updated_at: { type: :string }
                },
