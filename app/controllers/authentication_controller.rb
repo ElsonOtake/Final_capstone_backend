@@ -4,7 +4,7 @@ class AuthenticationController < ApplicationController
   # POST /auth/login
   def login
     data = json_payload.slice(*ALLOWED_DATA)
-    @user = User.find_by(email: data[:email])
+    @user = User.find_by(email: data[:email].to_s.strip.downcase)
     if @user&.valid_password?(data[:password])
       token, expires_at = JsonWebToken.encode(user_id: @user.id)
       render json: { token:, exp: expires_at.strftime('%m-%d-%Y %H:%M'),
