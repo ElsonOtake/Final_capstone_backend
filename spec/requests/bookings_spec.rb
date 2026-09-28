@@ -4,7 +4,7 @@ RSpec.describe Booking, type: :request do
   before(:each) do
     @user = User.create(name: 'visitor', email: 'visitor@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'visitor',
+      email: 'visitor@email.com',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
@@ -267,7 +267,7 @@ RSpec.describe Booking, type: :request do
   before(:each) do
     @user = User.create(name: 'username', email: 'username@email.com', password: 'password', role: 'admin')
     post '/api/v1/auth/login', params: {
-      name: 'username',
+      email: 'username@email.com',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
