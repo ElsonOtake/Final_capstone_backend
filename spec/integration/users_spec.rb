@@ -3,12 +3,12 @@ require 'swagger_helper'
 describe 'Users' do
   before(:each) do
     @user = User.create(name: 'plain_user', email: 'plain_user@example.com', password: 'password123')
-    post '/api/v1/auth/login', params: { name: 'plain_user', password: 'password123' }.to_json
+    post '/api/v1/auth/login', params: { email: 'plain_user@example.com', password: 'password123' }.to_json
     @token = JSON.parse(response.body).with_indifferent_access[:token]
 
     @admin = User.create(name: 'users_admin', email: 'users_admin@example.com', password: 'password123',
                          role: 'admin')
-    post '/api/v1/auth/login', params: { name: 'users_admin', password: 'password123' }.to_json
+    post '/api/v1/auth/login', params: { email: 'users_admin@example.com', password: 'password123' }.to_json
     @admin_token = JSON.parse(response.body).with_indifferent_access[:token]
   end
 
