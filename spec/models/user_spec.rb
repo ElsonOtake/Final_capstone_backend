@@ -23,4 +23,28 @@ RSpec.describe User, type: :model do
       expect(@user.email).to eq('antonio@mail.com')
     end
   end
+
+  describe 'email normalization' do
+    it 'stores email in lowercase' do
+      user = User.create(
+        name: 'Antonio',
+        email: 'ANTONIO@mail.com',
+        password: 'password123'
+      )
+
+      expect(user.email).to eq('antonio@mail.com')
+    end
+  end
+
+  describe 'email normalization with blank spaces' do
+    it 'stores email in lowercase' do
+      user = User.create(
+        name: 'Antonio',
+        email: ' ANTONIO@mail.com ',
+        password: 'password123'
+      )
+
+      expect(user.email).to eq('antonio@mail.com')
+    end
+  end
 end

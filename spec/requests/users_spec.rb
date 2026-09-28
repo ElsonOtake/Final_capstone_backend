@@ -4,14 +4,14 @@ RSpec.describe User, type: :request do
   before(:each) do
     @user = User.create(name: 'user', email: 'user@email.com', password: 'password')
     post '/api/v1/auth/login', params: {
-      name: 'user',
+      email: 'user@email.com',
       password: 'password'
     }.to_json
     json = JSON.parse(response.body).with_indifferent_access
     @token = json['token']
     @admin = User.create(name: 'admin', email: 'admin@email.com', password: 'password', role: 'admin')
     post '/api/v1/auth/login', params: {
-      name: 'admin',
+      email: 'admin@email.com',
       password: 'password'
     }.to_json
     json_admin = JSON.parse(response.body).with_indifferent_access

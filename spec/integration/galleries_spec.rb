@@ -3,12 +3,12 @@ require 'swagger_helper'
 describe 'Galleries' do
   before(:each) do
     @user = User.create(name: 'booking_user', email: 'booking_user@example.com', password: 'password123')
-    post '/api/v1/auth/login', params: { name: 'booking_user', password: 'password123' }.to_json
+    post '/api/v1/auth/login', params: { email: 'booking_user@example.com', password: 'password123' }.to_json
     @token = JSON.parse(response.body).with_indifferent_access[:token]
 
     @admin = User.create(name: 'gallery_admin', email: 'gallery_admin@example.com', password: 'password123',
                          role: 'admin')
-    post '/api/v1/auth/login', params: { name: 'gallery_admin', password: 'password123' }.to_json
+    post '/api/v1/auth/login', params: { email: 'gallery_admin@example.com', password: 'password123' }.to_json
     @admin_token = JSON.parse(response.body).with_indifferent_access[:token]
 
     @vehicle = Vehicle.create(model: 'foo', price: 100)
