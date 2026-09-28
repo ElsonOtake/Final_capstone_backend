@@ -11,12 +11,12 @@ RSpec.describe User, type: :request do
       post '/api/v1/auth/login', params: {}.to_json
       json = JSON.parse(response.body).with_indifferent_access
       expect(response.status).to eq(401)
-      expect(json['error']).to eq('Invalid username or password')
+      expect(json['error']).to eq('Invalid email or password')
     end
 
     it 'valid with correct parameters' do
       post '/api/v1/auth/login', params: {
-        name: 'username',
+        email: 'username@email.com',
         password: 'password'
       }.to_json
       json = JSON.parse(response.body)
@@ -26,24 +26,24 @@ RSpec.describe User, type: :request do
       expect(json['name']).to eq('username')
     end
 
-    it 'returns unauthorized with an unknown username' do
+    it 'returns unauthorized with an unknown email' do
       post '/api/v1/auth/login', params: {
-        name: 'banana',
+        email: 'banana@avocado.com',
         password: 'cucumber'
       }.to_json
       json = JSON.parse(response.body).with_indifferent_access
       expect(response.status).to eq(401)
-      expect(json['error']).to eq('Invalid username or password')
+      expect(json['error']).to eq('Invalid email or password')
     end
 
     it 'returns unauthorized with a valid username but wrong password' do
       post '/api/v1/auth/login', params: {
-        name: 'username',
+        email: 'username@email.com',
         password: 'wrongpassword'
       }.to_json
       json = JSON.parse(response.body).with_indifferent_access
       expect(response.status).to eq(401)
-      expect(json['error']).to eq('Invalid username or password')
+      expect(json['error']).to eq('Invalid email or password')
     end
 
     it 'returns unauthorized with unrecognized parameters' do
@@ -53,16 +53,16 @@ RSpec.describe User, type: :request do
       }.to_json
       json = JSON.parse(response.body).with_indifferent_access
       expect(response.status).to eq(401)
-      expect(json['error']).to eq('Invalid username or password')
+      expect(json['error']).to eq('Invalid email or password')
     end
 
     it 'returns unauthorized without a password' do
       post '/api/v1/auth/login', params: {
-        name: 'username'
+        email: 'username@email.com'
       }.to_json
       json = JSON.parse(response.body).with_indifferent_access
       expect(response.status).to eq(401)
-      expect(json['error']).to eq('Invalid username or password')
+      expect(json['error']).to eq('Invalid email or password')
     end
   end
 end
