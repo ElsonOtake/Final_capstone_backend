@@ -24,6 +24,16 @@ describe 'Auth login' do
         run_test!
       end
 
+      response '200', 'OK' do
+        context 'with a case-insensitive email' do
+          let(:user) do
+            User.create(name: 'Elson Otake', email: 'elson.otake@example.com', password: 'password123')
+            { email: 'ELSON.OTAKE@EXAMPLE.COM', password: 'password123' }
+          end
+          run_test!
+        end
+      end
+
       response '401', 'Unauthorized' do
         description 'Returned for both to avoid revealing which one was wrong'
         let(:user) { { email: 'nonexistent@user.com', password: 'wrong-password' } }
