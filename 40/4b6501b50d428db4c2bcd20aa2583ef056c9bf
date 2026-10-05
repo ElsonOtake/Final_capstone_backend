@@ -1,0 +1,14 @@
+swagger/v1/swagger.yaml
+  h_da978aeed56e72 26,28,32
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "404b6501b50d428db4c2bcd20aa2583ef056c9bf",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}
