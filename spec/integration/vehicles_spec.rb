@@ -23,22 +23,15 @@ describe 'Vehicles' do
 
       response '200', 'OK' do
         schema type: :array, items: {
-          type: :object, properties: {
-                           id: { type: :integer },
-                           model: { type: :string },
-                           description: { type: :string, nullable: true },
-                           year: { type: :string, nullable: true },
-                           brand: { type: :string, nullable: true },
-                           color: { type: :string, nullable: true },
-                           country: { type: :string, nullable: true },
-                           power: { type: :string, nullable: true },
-                           max_speed: { type: :string, nullable: true },
-                           acceleration: { type: :string, nullable: true },
-                           price: { type: :integer },
-                           created_at: { type: :string },
-                           updated_at: { type: :string }
-                         },
-          required: %w[id model price created_at updated_at]
+          type: :object, required: %w[id model price created_at updated_at],
+          properties: {
+            id: { type: :integer }, model: { type: :string }, description: { type: :string, nullable: true },
+            year: { type: :string, nullable: true }, brand: { type: :string, nullable: true },
+            color: { type: :string, nullable: true }, country: { type: :string, nullable: true },
+            power: { type: :string, nullable: true }, max_speed: { type: :string, nullable: true },
+            acceleration: { type: :string, nullable: true }, price: { type: :integer },
+            created_at: { type: :string }, updated_at: { type: :string }
+          }
         }
         let(:Authorization) { @token }
         run_test!
@@ -61,15 +54,13 @@ describe 'Vehicles' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
 
       response '200', 'OK' do
-        schema type: :object,
-               properties: {
-                 id: { type: :integer }, model: { type: :string }, description: { type: :string, nullable: true },
-                 year: { type: :string, nullable: true }, brand: { type: :string, nullable: true }, color: { type: :string, nullable: true },
-                 country: { type: :string, nullable: true }, power: { type: :string, nullable: true }, max_speed: { type: :string, nullable: true },
-                 acceleration: { type: :string, nullable: true }, price: { type: :integer },
-                 created_at: { type: :string }, updated_at: { type: :string }
-               },
-               required: %w[id model price created_at updated_at]
+        schema type: :object, required: %w[id model price created_at updated_at],
+               properties: { id: { type: :integer }, model: { type: :string }, price: { type: :integer },
+                             description: { type: :string, nullable: true }, created_at: { type: :string },
+                             year: { type: :string, nullable: true }, brand: { type: :string, nullable: true },
+                             color: { type: :string, nullable: true }, country: { type: :string, nullable: true },
+                             power: { type: :string, nullable: true }, max_speed: { type: :string, nullable: true },
+                             acceleration: { type: :string, nullable: true }, updated_at: { type: :string } }
 
         let(:id) { @vehicle.id }
         let(:Authorization) { @token }
@@ -97,20 +88,12 @@ describe 'Vehicles' do
       consumes 'application/json'
       produces 'application/json'
       parameter name: :vehicle, in: :body, description: 'Create a vehicle', schema: {
-        type: :object,
-        properties: {
-          model: { type: :string },
-          description: { type: :string, nullable: true },
-          year: { type: :string, nullable: true },
-          brand: { type: :string, nullable: true },
-          color: { type: :string, nullable: true },
-          country: { type: :string, nullable: true },
-          power: { type: :string, nullable: true },
-          max_speed: { type: :string, nullable: true },
-          acceleration: { type: :string, nullable: true },
-          price: { type: :integer }
-        },
-        required: %w[model price]
+        type: :object, required: %w[model price],
+        properties: { model: { type: :string }, description: { type: :string, nullable: true },
+                      year: { type: :string, nullable: true }, brand: { type: :string, nullable: true },
+                      color: { type: :string, nullable: true }, country: { type: :string, nullable: true },
+                      power: { type: :string, nullable: true }, max_speed: { type: :string, nullable: true },
+                      acceleration: { type: :string, nullable: true }, price: { type: :integer } }
       }
 
       response '200', 'OK' do
@@ -142,22 +125,15 @@ describe 'Vehicles' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
 
       response '200', 'OK' do
-        schema type: :object, properties: {
-                                id: { type: :integer },
-                                model: { type: :string },
-                                description: { type: :string, nullable: true },
-                                year: { type: :string, nullable: true },
-                                brand: { type: :string, nullable: true },
-                                color: { type: :string, nullable: true },
-                                country: { type: :string, nullable: true },
-                                power: { type: :string, nullable: true },
-                                max_speed: { type: :string, nullable: true },
-                                acceleration: { type: :string, nullable: true },
-                                price: { type: :integer },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[id model price created_at updated_at]
+        schema type: :object, required: %w[id model price created_at updated_at],
+               properties: {
+                 id: { type: :integer }, model: { type: :string }, description: { type: :string, nullable: true },
+                 year: { type: :string, nullable: true }, brand: { type: :string, nullable: true },
+                 color: { type: :string, nullable: true }, country: { type: :string, nullable: true },
+                 power: { type: :string, nullable: true }, max_speed: { type: :string, nullable: true },
+                 acceleration: { type: :string, nullable: true }, price: { type: :integer },
+                 created_at: { type: :string }, updated_at: { type: :string }
+               }
 
         let(:id) { Vehicle.create(model: 'to_delete', price: 50).id }
         let(:Authorization) { @admin_token }

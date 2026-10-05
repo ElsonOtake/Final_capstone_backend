@@ -10,7 +10,7 @@ RSpec.describe Booking, type: :model do
                               city: 'Manizales')
   end
 
-  context 'When testing Booking Class' do
+  context 'When testing Booking Class' do # rubocop:disable Metrics/BlockLength
     it 'Should be valid' do
       expect(@booking).to be_valid
     end
@@ -66,7 +66,7 @@ RSpec.describe Booking, type: :model do
       expect(overlapping_booking).to_not be_valid
     end
 
-        it 'Should have a specific error message when a booking overlaps an existing one' do
+    it 'Should have a specific error message when a booking overlaps an existing one' do
       overlapping_booking = Booking.new(user_id: @user.id, vehicle_id: @car.id, start_date: '2022-11-01',
                                         end_date: '2022-11-10', city: 'Manizales')
       overlapping_booking.valid?

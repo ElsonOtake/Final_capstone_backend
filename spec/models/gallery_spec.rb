@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Gallery, type: :model do
   before do
-    @vehicle = Vehicle.create(model: 'Impreza', description: 'Good vehicle', year: '1996', brand: 'Subaru', color: 'Red',
+    @vehicle = Vehicle.create(model: 'Impreza', description: 'Good vehicle', year: '1996', brand: 'Subaru',
                               country: 'Japan', power: '310 HP', max_speed: '180 mph', acceleration: '0-100/5.6s',
-                              price: 100)
+                              color: 'Red', price: 100)
     @gallery = @vehicle.galleries.build
     @gallery.photo_file.attach(
       io: File.open(Rails.root.join('spec/fixtures/files/car.jpg')),

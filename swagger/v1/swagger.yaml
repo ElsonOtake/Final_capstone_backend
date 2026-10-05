@@ -23,12 +23,13 @@ paths:
             schema:
               type: object
               properties:
-                name:
+                email:
                   type: string
+                  format: email
                 password:
                   type: string
               required:
-              - name
+              - email
               - password
         description: User validation
   "/api/v1/vehicles/{vehicle_id}/bookings":
