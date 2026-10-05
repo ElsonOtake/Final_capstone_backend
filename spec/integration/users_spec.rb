@@ -72,16 +72,11 @@ describe 'Users' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'User identification'
 
       response '200', 'OK' do
-        schema type: :object,
+        schema type: :object, required: %w[id name email created_at updated_at],
                properties: {
-                 id: { type: :integer },
-                 name: { type: :string },
-                 email: { type: :string },
-                 role: { type: :string, nullable: true },
-                 created_at: { type: :string },
-                 updated_at: { type: :string }
-               },
-               required: %w[id name email created_at updated_at]
+                 id: { type: :integer }, name: { type: :string }, email: { type: :string },
+                 role: { type: :string, nullable: true }, created_at: { type: :string }, updated_at: { type: :string }
+               }
 
         let(:id) { @user.id }
         let(:Authorization) { @token }
@@ -102,8 +97,8 @@ describe 'Users' do
     end
   end
 
-  path '/api/v1/users/{id}' do
-    put 'Updates a user' do
+  path '/api/v1/users/{id}' do # rubocop:disable Metrics/BlockLength
+    put 'Updates a user' do # rubocop:disable Metrics/BlockLength
       security [{ ApiKeyAuth: [] }]
       tags 'Users'
       description 'Updates a user'
@@ -116,10 +111,10 @@ describe 'Users' do
         required: %w[name email password]
       }
       response '200', 'OK' do
-        schema type: :object,
+        schema type: :object, required: %w[id name email created_at updated_at],
                properties: { id: { type: :integer }, name: { type: :string }, email: { type: :string },
-                             role: { type: :string, nullable: true }, created_at: { type: :string }, updated_at: { type: :string } },
-               required: %w[id name email created_at updated_at]
+                             role: { type: :string, nullable: true }, created_at: { type: :string },
+                             updated_at: { type: :string } }
 
         let(:id) { @user.id }
         let(:user) { { name: 'Updated Name', email: 'updated@example.com', password: 'password123' } }

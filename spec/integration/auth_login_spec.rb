@@ -1,19 +1,15 @@
 require 'swagger_helper'
 
 describe 'Auth login' do
-  path '/api/v1/auth/login' do
-    post 'Login user' do
+  path '/api/v1/auth/login' do # rubocop:disable Metrics/BlockLength
+    post 'Login user' do # rubocop:disable Metrics/BlockLength
       tags 'Login'
       description 'Login user with valid authorization'
       consumes 'application/json'
       produces 'application/json'
       parameter name: :user, in: :body, description: 'User validation', schema: {
-        type: :object,
-        properties: {
-          email: { type: :string, format: :email },
-          password: { type: :string }
-        },
-        required: %w[email password]
+        type: :object, required: %w[email password],
+        properties: { email: { type: :string, format: :email }, password: { type: :string } }
       }
 
       response '200', 'OK' do

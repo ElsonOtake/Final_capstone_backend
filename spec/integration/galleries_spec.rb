@@ -57,8 +57,8 @@ describe 'Galleries' do
     end
   end
 
-  path '/api/v1/vehicles/{vehicle_id}/galleries' do
-    post 'Creates a gallery' do
+  path '/api/v1/vehicles/{vehicle_id}/galleries' do # rubocop:disable Metrics/BlockLength
+    post 'Creates a gallery' do # rubocop:disable Metrics/BlockLength
       security [{ ApiKeyAuth: [] }]
       tags 'Galleries'
       consumes 'multipart/form-data'

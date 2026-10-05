@@ -21,17 +21,12 @@ describe 'Bookings' do
 
       response '200', 'OK' do
         schema type: :array, items: {
-          type: :object, properties: {
-                           id: { type: :integer },
-                           start_date: { type: :string },
-                           end_date: { type: :string },
-                           city: { type: :string },
-                           vehicle_id: { type: :integer },
-                           user_id: { type: :integer },
-                           created_at: { type: :string },
-                           updated_at: { type: :string }
-                         },
-          required: %w[start_date end_date city vehicle_id user_id]
+          type: :object, required: %w[start_date end_date city vehicle_id user_id],
+          properties: {
+            id: { type: :integer }, start_date: { type: :string }, end_date: { type: :string },
+            city: { type: :string }, vehicle_id: { type: :integer }, user_id: { type: :integer },
+            created_at: { type: :string }, updated_at: { type: :string }
+          }
         }
 
         let(:vehicle_id) { @vehicle.id }
@@ -62,17 +57,10 @@ describe 'Bookings' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'Booking identification'
 
       response '200', 'OK' do
-        schema type: :object, properties: {
-                                id: { type: :integer },
-                                start_date: { type: :string },
-                                end_date: { type: :string },
-                                city: { type: :string },
-                                vehicle_id: { type: :integer },
-                                user_id: { type: :integer },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[start_date end_date city vehicle_id user_id]
+        schema type: :object, required: %w[start_date end_date city vehicle_id user_id],
+               properties: { id: { type: :integer }, start_date: { type: :string }, end_date: { type: :string },
+                             city: { type: :string }, vehicle_id: { type: :integer }, user_id: { type: :integer },
+                             created_at: { type: :string }, updated_at: { type: :string } }
 
         let(:vehicle_id) { @vehicle.id }
         let(:id) { @booking.id }
@@ -104,14 +92,9 @@ describe 'Bookings' do
       produces 'application/json'
       parameter name: :vehicle_id, in: :path, type: :integer, required: true, description: 'Vehicle identification'
       parameter name: :booking, in: :body, description: 'Create a booking', schema: {
-        type: :object,
-        properties: {
-          start_date: { type: :string },
-          end_date: { type: :string },
-          city: { type: :string },
-          user_id: { type: :integer }
-        },
-        required: %w[start_date end_date city user_id]
+        type: :object, required: %w[start_date end_date city user_id],
+        properties: { start_date: { type: :string }, end_date: { type: :string }, city: { type: :string },
+                      user_id: { type: :integer } }
       }
 
       response '200', 'OK' do
@@ -147,17 +130,12 @@ describe 'Bookings' do
 
       response '200', 'OK' do
         schema type: :array, items: {
-          type: :object, properties: {
-                           id: { type: :integer },
-                           start_date: { type: :string },
-                           end_date: { type: :string },
-                           city: { type: :string },
-                           vehicle_id: { type: :integer },
-                           user_id: { type: :integer },
-                           created_at: { type: :string },
-                           updated_at: { type: :string }
-                         },
-          required: %w[start_date end_date city vehicle_id user_id]
+          type: :object, required: %w[start_date end_date city vehicle_id user_id],
+          properties: {
+            id: { type: :integer }, start_date: { type: :string }, end_date: { type: :string },
+            city: { type: :string }, vehicle_id: { type: :integer }, user_id: { type: :integer },
+            created_at: { type: :string }, updated_at: { type: :string }
+          }
         }
 
         let(:user_id) { @user.id }
@@ -188,17 +166,10 @@ describe 'Bookings' do
       parameter name: :id, in: :path, type: :integer, required: true, description: 'Booking identification'
 
       response '200', 'OK' do
-        schema type: :object, properties: {
-                                id: { type: :integer },
-                                start_date: { type: :string },
-                                end_date: { type: :string },
-                                city: { type: :string },
-                                vehicle_id: { type: :integer },
-                                user_id: { type: :integer },
-                                created_at: { type: :string },
-                                updated_at: { type: :string }
-                              },
-               required: %w[start_date end_date city vehicle_id user_id]
+        schema type: :object, required: %w[start_date end_date city vehicle_id user_id],
+               properties: { id: { type: :integer }, start_date: { type: :string }, end_date: { type: :string },
+                             city: { type: :string }, vehicle_id: { type: :integer }, user_id: { type: :integer },
+                             created_at: { type: :string }, updated_at: { type: :string } }
 
         let(:user_id) { @user.id }
         let(:id) { @booking.id }
@@ -222,7 +193,7 @@ describe 'Bookings' do
     end
   end
 
-  path '/api/v1/users/{user_id}/bookings' do
+  path '/api/v1/users/{user_id}/bookings' do # rubocop:disable Metrics/BlockLength
     post 'Create a booking' do
       security [{ ApiKeyAuth: [] }]
       tags 'Bookings'
@@ -230,14 +201,11 @@ describe 'Bookings' do
       produces 'application/json'
       parameter name: :user_id, in: :path, type: :integer, required: true, description: 'User identification'
       parameter name: :booking, in: :body, description: 'Create a booking', schema: {
-        type: :object,
+        type: :object, required: %w[start_date end_date city vehicle_id],
         properties: {
-          start_date: { type: :string },
-          end_date: { type: :string },
-          city: { type: :string },
+          start_date: { type: :string }, end_date: { type: :string }, city: { type: :string },
           vehicle_id: { type: :integer }
-        },
-        required: %w[start_date end_date city vehicle_id]
+        }
       }
 
       response '200', 'OK' do
