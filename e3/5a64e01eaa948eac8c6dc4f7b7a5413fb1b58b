@@ -1,0 +1,14 @@
+spec/integration/vehicles_spec.rb
+  h_da978aeed56e72 6,11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "e35a64e01eaa948eac8c6dc4f7b7a5413fb1b58b",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

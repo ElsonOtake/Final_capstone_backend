@@ -1,0 +1,17 @@
+spec/requests/vehicles_spec.rb
+  h_da978aeed56e72 192,206,212-221
+  h_da978aeed56e72 207-211
+app/controllers/api/v1/vehicles_controller.rb
+  h_da978aeed56e72 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6c826e4bd616cd3741a01a15411af90b644c1ffb",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

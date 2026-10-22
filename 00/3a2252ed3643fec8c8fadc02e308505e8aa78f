@@ -1,0 +1,14 @@
+.env.sample
+  h_da978aeed56e72 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "003a2252ed3643fec8c8fadc02e308505e8aa78f",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

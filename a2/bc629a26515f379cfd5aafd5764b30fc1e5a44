@@ -1,0 +1,14 @@
+config/initializers/active_storage_table_names.rb
+  h_da978aeed56e72 1-7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a2bc629a26515f379cfd5aafd5764b30fc1e5a44",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

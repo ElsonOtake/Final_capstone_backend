@@ -1,0 +1,14 @@
+spec/integration/bookings_spec.rb
+  h_da978aeed56e72 6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d36fc7652ac1061d879cd3c0a29a345fe1c5e6c9",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

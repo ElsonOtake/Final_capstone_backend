@@ -1,0 +1,20 @@
+config/storage.yml
+  h_da978aeed56e72 9-17
+Gemfile
+  h_da978aeed56e72 54
+config/environments/production.rb
+  h_da978aeed56e72 34
+Gemfile.lock
+  h_da978aeed56e72 86-104,146,343
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "116388344536c37f56c59c4f9a722c948add585f",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

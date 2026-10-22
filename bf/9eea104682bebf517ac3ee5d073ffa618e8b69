@@ -1,0 +1,17 @@
+spec/requests/galleries_spec.rb
+  h_da978aeed56e72 75-77,79,131,137,142,144,148
+  h_da978aeed56e72 80,132,145,154
+app/controllers/api/v1/galleries_controller.rb
+  h_da978aeed56e72 12-16
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "bf9eea104682bebf517ac3ee5d073ffa618e8b69",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

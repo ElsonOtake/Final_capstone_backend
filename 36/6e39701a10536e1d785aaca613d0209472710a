@@ -1,0 +1,14 @@
+spec/swagger_helper.rb
+  h_da978aeed56e72 7,11,13-15,39,42
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "366e39701a10536e1d785aaca613d0209472710a",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

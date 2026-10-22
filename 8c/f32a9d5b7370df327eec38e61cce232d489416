@@ -1,0 +1,15 @@
+app/controllers/authentication_controller.rb
+  h_da978aeed56e72 7-8,14
+  h_da978aeed56e72 9,12
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8cf32a9d5b7370df327eec38e61cce232d489416",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

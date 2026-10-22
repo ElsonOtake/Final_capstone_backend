@@ -1,0 +1,14 @@
+spec/integration/galleries_spec.rb
+  h_da978aeed56e72 67,72,90,102
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "046604867399cfde9d1ce90c1627b1d0f4e4c954",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+app/serializers/gallery_serializer.rb
+  h_da978aeed56e72 2-8
+config/environments/production.rb
+  h_da978aeed56e72 60-74
+app/controllers/api/v1/galleries_controller.rb
+  h_da978aeed56e72 22
+config/environments/development.rb
+  h_da978aeed56e72 20-24,38-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "b4784eb6ea59b8a7a3d7900afaca95b0b1f7d571",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}

@@ -1,0 +1,30 @@
+spec/requests/bookings_spec.rb
+  h_da978aeed56e72 149,163,179,195,211,227,378,392,408,424,440,456
+spec/requests/users_spec.rb
+  h_da978aeed56e72 140,154,169,184,199,288,302
+app/controllers/api/v1/vehicles_controller.rb
+  h_da978aeed56e72 21,28
+spec/requests/galleries_spec.rb
+  h_da978aeed56e72 121,135,147
+app/controllers/api/v1/bookings_controller.rb
+  h_da978aeed56e72 44,54,62,69
+app/controllers/api/v1/galleries_controller.rb
+  h_da978aeed56e72 18,26
+spec/requests/vehicles_spec.rb
+  h_da978aeed56e72 165,179,194,208
+app/controllers/api/v1/users_controller.rb
+  h_da978aeed56e72 22,28,36,41
+swagger/v1/swagger.yaml
+  h_da978aeed56e72 780,783
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "6ba7621855099f6f8da93738405f00467e70b945",
+  "prompts": {},
+  "humans": {
+    "h_da978aeed56e72": {
+      "author": "Elson Otake <elsonotake@yahoo.com.br>"
+    }
+  }
+}
